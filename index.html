@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>আমাদের কামারের চর - অ্যাডমিন প্যানেল সহ</title>
+  <title>আমাদের কামারের চর</title>
   <style>
     :root {
       --bg-color: #f4f6f8;
@@ -17,12 +17,21 @@
       --shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
 
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --border-color: #333333;
+      --shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
       margin: 0;
       padding: 0;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     header {
@@ -40,20 +49,30 @@
 
     header h1 { margin: 0; font-size: 1.2rem; }
 
-    .admin-btn {
-      background-color: #ff9800;
-      color: white;
+    .theme-toggle {
+      background: none;
       border: none;
-      padding: 8px 14px;
-      border-radius: 5px;
+      color: white;
+      font-size: 1.2rem;
       cursor: pointer;
-      font-weight: bold;
     }
 
     .container {
       padding: 15px;
       max-width: 800px;
       margin: 0 auto;
+    }
+
+    .search-box { margin-bottom: 20px; }
+    .search-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      background-color: var(--card-bg);
+      color: var(--text-color);
     }
 
     .section-title {
@@ -67,7 +86,7 @@
 
     .grid-container {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
       gap: 12px;
     }
 
@@ -75,23 +94,27 @@
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      padding: 15px 8px;
+      padding: 12px 8px;
       text-align: center;
       cursor: pointer;
       box-shadow: var(--shadow);
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .card:hover { transform: translateY(-3px); }
-    .card .icon { font-size: 1.8rem; margin-bottom: 6px; }
-    .card .title { font-size: 0.85rem; font-weight: 500; }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
 
-    /* Modal / Popup Box */
+    .card .icon { font-size: 1.5rem; margin-bottom: 6px; }
+    .card .title { font-size: 0.85rem; font-weight: 500; line-height: 1.2; }
+
+    /* Modal Styling */
     .modal {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.6);
+      background-color: rgba(0,0,0,0.5);
       z-index: 1000;
       justify-content: center;
       align-items: center;
@@ -102,8 +125,8 @@
       padding: 20px;
       border-radius: 12px;
       width: 90%;
-      max-width: 500px;
-      max-height: 85vh;
+      max-width: 450px;
+      max-height: 80vh;
       overflow-y: auto;
       position: relative;
     }
@@ -116,15 +139,16 @@
       color: #888;
     }
 
-    /* Form Styles */
-    form label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 0.9rem; }
+    /* Form Design */
+    form label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 0.85rem; }
     form input, form select, form textarea {
       width: 100%;
       padding: 10px;
       border: 1px solid var(--border-color);
       border-radius: 6px;
       box-sizing: border-box;
-      margin-bottom: 10px;
+      background-color: var(--card-bg);
+      color: var(--text-color);
     }
 
     .btn-submit {
@@ -132,16 +156,16 @@
       background-color: var(--primary);
       color: white;
       border: none;
-      padding: 12px;
+      padding: 10px;
       border-radius: 6px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
+      margin-top: 10px;
     }
 
-    /* Data List Inside Modal */
     .data-item {
-      background: #f9f9f9;
-      border: 1px solid #ddd;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border-color);
       padding: 10px;
       border-radius: 6px;
       margin-bottom: 8px;
@@ -151,14 +175,12 @@
     }
 
     .action-btns button {
-      margin-left: 5px;
-      padding: 5px 8px;
+      padding: 4px 8px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       font-size: 0.8rem;
     }
-
     .btn-edit { background-color: var(--warning); color: white; }
     .btn-delete { background-color: var(--danger); color: white; }
   </style>
@@ -167,214 +189,214 @@
 
   <header>
     <h1>আমাদের কামারের চর</h1>
-    <button class="admin-btn" onclick="openAdminModal()">🔐 অ্যাডমিন প্যানেল</button>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
   </header>
 
   <div class="container">
-    <div class="section-title">📌 সকল ক্যাটাগরি ও সেবা</div>
-    
-    <div class="grid-container" id="categoryGrid">
-      <!-- ক্যাটাগরিগুলো ডাইনামিকালি লোড হবে -->
+    <div class="search-box">
+      <input type="text" placeholder="খুঁজুন (যেমন: হাসপাতাল, পুলিশ...)">
+    </div>
+
+    <!-- ১. জরুরি সেবা -->
+    <div class="section-title">🚨 জরুরি সেবা (এক ট্যাপে কল)</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('police', 'পুলিশ')"><div class="icon">👮</div><div class="title">পুলিশ</div></div>
+      <div class="card" onclick="openCategoryModal('fire', 'ফায়ার সার্ভিস')"><div class="icon">🚒</div><div class="title">ফায়ার সার্ভিস</div></div>
+      <div class="card" onclick="openCategoryModal('ambulance', 'অ্যাম্বুলেন্স')"><div class="icon">🚑</div><div class="title">অ্যাম্বুলেন্স</div></div>
+      <div class="card" onclick="openCategoryModal('hospital', 'হাসপাতাল')"><div class="icon">🏥</div><div class="title">হাসপাতাল</div></div>
+    </div>
+
+    <!-- ২. সামাজিক ও স্বাস্থ্য সেবা -->
+    <div class="section-title">🤝 সামাজিক ও স্বাস্থ্য সেবা</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('blood', 'রক্তদাতা')"><div class="icon">🩸</div><div class="title">রক্তদাতা</div></div>
+      <div class="card" onclick="openCategoryModal('doctor', 'ডাক্তার')"><div class="icon">👨‍⚕️</div><div class="title">ডাক্তার</div></div>
+    </div>
+
+    <!-- ৩. অ্যাডমিন প্যানেল -->
+    <div class="section-title">🔐 অ্যাডমিন প্যানেল</div>
+    <div class="grid-container">
+      <div class="card" onclick="openAdminAddModal()"><div class="icon">➕</div><div class="title">নতুন তথ্য যোগ</div></div>
+      <div class="card" onclick="openAdminManageModal('edit')"><div class="icon">✏️</div><div class="title">তথ্য সম্পাদনা</div></div>
+      <div class="card" onclick="openAdminManageModal('delete')"><div class="icon">❌</div><div class="title">তথ্য মুছে ফেলা</div></div>
     </div>
   </div>
 
-  <!-- ১. ইউজার মোডাল (তথ্য দেখানোর জন্য) -->
-  <div id="userModal" class="modal">
+  <!-- ডাইনামিক মোডাল -->
+  <div id="infoModal" class="modal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('userModal')">&times;</span>
-      <h3 id="userModalTitle">শিরোনাম</h3>
-      <div id="userModalContent">তথ্য খালি রয়েছে।</div>
-    </div>
-  </div>
-
-  <!-- ২. অ্যাডমিন মোডাল (তথ্য যোগ, সম্পাদনা ও মোছার জন্য) -->
-  <div id="adminModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('adminModal')">&times;</span>
-      <h3>🔐 অ্যাডমিন ম্যানেজমেন্ট প্যানেল</h3>
-      
-      <!-- তথ্য যোগ/সম্পাদনার ফর্ম -->
-      <form id="dataForm" onsubmit="saveData(event)">
-        <input type="hidden" id="editIndex" value="-1">
-        
-        <label for="categorySelect">ক্যাটাগরি নির্বাচন করুন:</label>
-        <select id="categorySelect" required onchange="displayCategoryData()">
-          <!-- ক্যাটাগরি লিস্ট -->
-        </select>
-
-        <label for="itemTitle">শিরোনাম / নাম:</label>
-        <input type="text" id="itemTitle" placeholder="যেমন: পুলিশ স্টল, ড. রহিম" required>
-
-        <label for="itemDetail">বিস্তারিত তথ্য / ফোন নাম্বার:</label>
-        <textarea id="itemDetail" rows="3" placeholder="যেমন: ০১৭XXXXXXXX বা বিস্তারিত বিবরণ" required></textarea>
-
-        <button type="submit" class="btn-submit" id="submitBtn">➕ তথ্য যুক্ত করুন</button>
-      </form>
-
-      <hr style="margin: 20px 0;">
-
-      <h4>বিদ্যমান তথ্যের তালিকা (সম্পাদনা/মুছুন)</h4>
-      <div id="adminDataList">
-        <!-- সিলেক্ট করা ক্যাটাগরির তথ্যগুলো এখানে ফিল্টার হয়ে দেখাবে -->
-      </div>
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3 id="modalTitle">শিরোনাম</h3>
+      <div id="modalBody">তথ্য লোড হচ্ছে...</div>
     </div>
   </div>
 
   <script>
-    // ক্যাটাগরিগুলোর লিস্ট
-    const categories = [
-      { id: "notice", title: "ইউনিয়ন নোটিশ", icon: "🏛️" },
-      { id: "govt_notice", title: "সরকারি ঘোষণা", icon: "📜" },
-      { id: "police", title: "পুলিশ সার্ভিস", icon: "👮" },
-      { id: "fire", title: "ফায়ার সার্ভিস", icon: "🚒" },
-      { id: "ambulance", title: "অ্যাম্বুলেন্স", icon: "🚑" },
-      { id: "hospital", title: "হাসপাতাল", icon: "🏥" },
-      { id: "doctor", title: "ডাক্তার", icon: "👨‍⚕️" },
-      { id: "blood", title: "রক্তদাতা", icon: "🩸" },
-      { id: "school", title: "বিদ্যালয় ও কলেজ", icon: "🏫" },
-      { id: "mosque", title: "মসজিদ ও ওয়াজ", icon: "🕌" },
-      { id: "complain", title: "অভিযোগ ও মতামত", icon: "📝" },
-      { id: "sports", title: "খেলাধুলা", icon: "⚽" }
-    ];
-
-    // LocalStorage থেকে ডাটা লোড করা
-    let appData = JSON.parse(localStorage.getItem('kamarerCharData')) || {};
-
-    // পেজ লোড হলে ক্যাটাগরি গ্রিড ও অপশন রেন্ডার করা
-    window.onload = function() {
-      renderCategoryGrid();
-      populateCategorySelect();
+    const categoryNames = {
+      police: "পুলিশ",
+      fire: "ফায়ার সার্ভিস",
+      ambulance: "অ্যাম্বুলেন্স",
+      hospital: "হাসপাতাল",
+      blood: "রক্তদাতা",
+      doctor: "ডাক্তার"
     };
 
-    function renderCategoryGrid() {
-      const grid = document.getElementById('categoryGrid');
-      grid.innerHTML = '';
-      categories.forEach(cat => {
-        grid.innerHTML += `
-          <div class="card" onclick="openUserModal('${cat.id}', '${cat.title}')">
-            <div class="icon">${cat.icon}</div>
-            <div class="title">${cat.title}</div>
-          </div>
-        `;
-      });
-    }
+    let appData = JSON.parse(localStorage.getItem('kamarerCharData')) || {};
 
-    function populateCategorySelect() {
-      const select = document.getElementById('categorySelect');
-      select.innerHTML = '';
-      categories.forEach(cat => {
-        select.innerHTML += `<option value="${cat.id}">${cat.title}</option>`;
-      });
-    }
-
-    // --- ইউজার ভিউ ফাংশন ---
-    function openUserModal(catId, catTitle) {
-      document.getElementById('userModalTitle').innerText = catTitle;
-      const contentDiv = document.getElementById('userModalContent');
-      const items = appData[catId] || [];
+    // ক্যাটাগরির তথ্য দেখানোর মোডাল
+    function openCategoryModal(catKey, catTitle) {
+      document.getElementById('modalTitle').innerText = catTitle;
+      const items = appData[catKey] || [];
+      let bodyHtml = "";
 
       if (items.length === 0) {
-        contentDiv.innerHTML = "<p>বর্তমানে এই ক্যাটাগরিতে কোনো তথ্য নেই।</p>";
+        bodyHtml = "<p>বর্তমানে কোনো তথ্য উপলব্ধ নেই।</p>";
       } else {
-        contentDiv.innerHTML = items.map(item => `
-          <div class="data-item">
-            <div>
-              <strong>${item.title}</strong><br>
-              <small>${item.detail.replace(/\n/g, '<br>')}</small>
+        items.forEach(item => {
+          bodyHtml += `
+            <div class="data-item">
+              <div>
+                <strong>${item.title}</strong><br>
+                <small>${item.detail}</small>
+              </div>
+              ${item.phone ? `<a href="tel:${item.phone}" style="background:#00695c; color:white; padding:5px 10px; border-radius:4px; text-decoration:none;">কল</a>` : ''}
             </div>
-            ${item.detail.match(/\d{11}/) ? `<a href="tel:${item.detail.match(/\d{11}/)[0]}" style="background:#00695c; color:white; padding:5px 10px; text-decoration:none; border-radius:4px;">কল করুন</a>` : ''}
-          </div>
-        `).join('');
+          `;
+        });
       }
-
-      document.getElementById('userModal').style.display = 'flex';
+      document.getElementById('modalBody').innerHTML = bodyHtml;
+      document.getElementById('infoModal').style.display = 'flex';
     }
 
-    // --- অ্যাডমিন প্যানেল ফাংশন ---
-    function openAdminModal() {
-      document.getElementById('adminModal').style.display = 'flex';
-      displayCategoryData();
-    }
-
-    // তথ্য যুক্ত বা আপডেট (সম্পাদনা) করা
-    function saveData(event) {
-      event.preventDefault();
-      const catId = document.getElementById('categorySelect').value;
-      const title = document.getElementById('itemTitle').value;
-      const detail = document.getElementById('itemDetail').value;
-      const editIndex = parseInt(document.getElementById('editIndex').value);
-
-      if (!appData[catId]) appData[catId] = [];
-
-      if (editIndex === -1) {
-        // নতুন যোগ
-        appData[catId].push({ title, detail });
-      } else {
-        // তথ্য সম্পাদনা
-        appData[catId][editIndex] = { title, detail };
-        document.getElementById('editIndex').value = "-1";
-        document.getElementById('submitBtn').innerText = "➕ তথ্য যুক্ত করুন";
-      }
-
-      localStorage.setItem('kamarerCharData', JSON.stringify(appData));
-      document.getElementById('itemTitle').value = '';
-      document.getElementById('itemDetail').value = '';
+    // ১. নতুন তথ্য যোগ করার ফরম মোডাল
+    function openAdminAddModal() {
+      document.getElementById('modalTitle').innerText = "নতুন তথ্য যোগ করুন";
+      let options = Object.keys(categoryNames).map(k => `<option value="${k}">${categoryNames[k]}</option>`).join('');
       
-      displayCategoryData();
-      alert("তথ্য সফলভাবে সংরক্ষিত হয়েছে!");
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveNewData(event)">
+          <label>ক্যাটাগরি:</label>
+          <select id="addCatKey">${options}</select>
+          
+          <label>শিরোনাম/নাম:</label>
+          <input type="text" id="addTitle" required placeholder="যেমন: কামারের চর থানা">
+          
+          <label>ফোন নম্বর (যদি থাকে):</label>
+          <input type="text" id="addPhone" placeholder="০১৭XXXXXXXX">
+
+          <label>বিস্তারিত বিবরণ:</label>
+          <textarea id="addDetail" rows="3" placeholder="বিবরণ লিখুন..."></textarea>
+          
+          <button type="submit" class="btn-submit">সংরক্ষণ করুন</button>
+        </form>
+      `;
+      document.getElementById('infoModal').style.display = 'flex';
     }
 
-    // সিলেক্ট করা ক্যাটাগরির ডাটা অ্যাডমিন প্যানেলে দেখানো
-    function displayCategoryData() {
-      const catId = document.getElementById('categorySelect').value;
-      const listDiv = document.getElementById('adminDataList');
-      const items = appData[catId] || [];
+    // ডাটা সেভ করার ফাংশন
+    function saveNewData(e) {
+      e.preventDefault();
+      const cat = document.getElementById('addCatKey').value;
+      const title = document.getElementById('addTitle').value;
+      const phone = document.getElementById('addPhone').value;
+      const detail = document.getElementById('addDetail').value;
 
-      if (items.length === 0) {
-        listDiv.innerHTML = "<p style='color: #777;'>এই ক্যাটাগরিতে কোনো তথ্য যোগ করা হয়নি।</p>";
-        return;
+      if (!appData[cat]) appData[cat] = [];
+      appData[cat].push({ title, phone, detail });
+      localStorage.setItem('kamarerCharData', JSON.stringify(appData));
+
+      alert("তথ্য সফলভাবে যোগ করা হয়েছে!");
+      closeModal();
+    }
+
+    // ২. তথ্য সম্পাদনা / মুছে ফেলার মোডাল
+    function openAdminManageModal(action) {
+      document.getElementById('modalTitle').innerText = action === 'edit' ? "তথ্য সম্পাদনা" : "তথ্য মুছে ফেলুন";
+      
+      let html = "";
+      let count = 0;
+
+      Object.keys(categoryNames).forEach(catKey => {
+        const items = appData[catKey] || [];
+        items.forEach((item, index) => {
+          count++;
+          html += `
+            <div class="data-item">
+              <div>
+                <small><strong>[${categoryNames[catKey]}]</strong></small><br>
+                <strong>${item.title}</strong>
+              </div>
+              <div>
+                ${action === 'edit' 
+                  ? `<button class="btn-edit" onclick="editItem('${catKey}', ${index})">সম্পাদনা</button>` 
+                  : `<button class="btn-delete" onclick="deleteItem('${catKey}', ${index})">মুছুন</button>`}
+              </div>
+            </div>
+          `;
+        });
+      });
+
+      if (count === 0) {
+        html = "<p>সম্পাদনা বা মোছার জন্য কোনো তথ্য পাওয়া যায়নি।</p>";
       }
 
-      listDiv.innerHTML = items.map((item, index) => `
-        <div class="data-item">
-          <div>
-            <strong>${item.title}</strong>
-          </div>
-          <div class="action-btns">
-            <button class="btn-edit" onclick="editData('${catId}', ${index})">সম্পাদনা</button>
-            <button class="btn-delete" onclick="deleteData('${catId}', ${index})">মুছুন</button>
-          </div>
-        </div>
-      `).join('');
+      document.getElementById('modalBody').innerHTML = html;
+      document.getElementById('infoModal').style.display = 'flex';
     }
 
-    // সম্পাদনা (Edit) ফাংশন
-    function editData(catId, index) {
-      const item = appData[catId][index];
-      document.getElementById('itemTitle').value = item.title;
-      document.getElementById('itemDetail').value = item.detail;
-      document.getElementById('editIndex').value = index;
-      document.getElementById('submitBtn').innerText = "✏️ তথ্য আপডেট করুন";
-    }
-
-    // তথ্য মোছা (Delete) ফাংশন
-    function deleteData(catId, index) {
-      if (confirm("আপনি কি নিশ্চিত যে এই তথ্যটি মুছে ফেলতে চান?")) {
-        appData[catId].splice(index, 1);
+    // আইটেম মোছা
+    function deleteItem(catKey, index) {
+      if (confirm("আপনি কি নিশ্চিত এটি মুছে ফেলতে চান?")) {
+        appData[catKey].splice(index, 1);
         localStorage.setItem('kamarerCharData', JSON.stringify(appData));
-        displayCategoryData();
+        openAdminManageModal('delete');
       }
     }
 
-    // মোডাল বন্ধ করা
-    function closeModal(modalId) {
-      document.getElementById(modalId).style.display = 'none';
-      if(modalId === 'adminModal') {
-        document.getElementById('dataForm').reset();
-        document.getElementById('editIndex').value = "-1";
-        document.getElementById('submitBtn').innerText = "➕ তথ্য যুক্ত করুন";
-      }
+    // আইটেম এডিট করার ফর্ম
+    function editItem(catKey, index) {
+      const item = appData[catKey][index];
+      document.getElementById('modalTitle').innerText = "তথ্য সম্পাদনা করুন";
+      document.getElementById('modalBody').innerHTML = `
+        <form onsubmit="saveEditData(event, '${catKey}', ${index})">
+          <label>শিরোনাম/নাম:</label>
+          <input type="text" id="editTitle" value="${item.title}" required>
+          
+          <label>ফোন নম্বর:</label>
+          <input type="text" id="editPhone" value="${item.phone || ''}">
+
+          <label>বিস্তারিত বিবরণ:</label>
+          <textarea id="editDetail" rows="3">${item.detail || ''}</textarea>
+          
+          <button type="submit" class="btn-submit" style="background:#f57c00;">আপডেট করুন</button>
+        </form>
+      `;
+    }
+
+    function saveEditData(e, catKey, index) {
+      e.preventDefault();
+      appData[catKey][index] = {
+        title: document.getElementById('editTitle').value,
+        phone: document.getElementById('editPhone').value,
+        detail: document.getElementById('editDetail').value
+      };
+      localStorage.setItem('kamarerCharData', JSON.stringify(appData));
+      alert("তথ্য আপডেট করা হয়েছে!");
+      closeModal();
+    }
+
+    function closeModal() {
+      document.getElementById('infoModal').style.display = 'none';
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    window.onclick = function(event) {
+      let modal = document.getElementById('infoModal');
+      if (event.target == modal) closeModal();
     }
   </script>
 </body>
-      </html>            
+</html>
