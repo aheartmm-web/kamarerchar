@@ -139,7 +139,7 @@
       color: #888;
     }
 
-    /* Form Design */
+    /* Form Styles */
     form label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 0.85rem; }
     form input, form select, form textarea {
       width: 100%;
@@ -194,32 +194,143 @@
 
   <div class="container">
     <div class="search-box">
-      <input type="text" placeholder="খুঁজুন (যেমন: হাসপাতাল, পুলিশ...)">
+      <input type="text" placeholder="খুঁজুন (যেমন: হাসপাতাল, পুলিশ, স্কুল...)">
     </div>
 
-    <!-- ১. জরুরি সেবা -->
+    <!-- ১. নোটিশ ও আপডেট -->
+    <div class="section-title">📢 নোটিশ ও আপডেট</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('union_notice', 'ইউনিয়ন নোটিশ')"><div class="icon">🏛️</div><div class="title">ইউনিয়ন নোটিশ</div></div>
+      <div class="card" onclick="openCategoryModal('govt_notice', 'সরকারি ঘোষণা')"><div class="icon">📜</div><div class="title">সরকারি ঘোষণা</div></div>
+      <div class="card" onclick="openCategoryModal('edu_notice', 'শিক্ষা নোটিশ')"><div class="icon">🎓</div><div class="title">শিক্ষা নোটিশ</div></div>
+      <div class="card" onclick="openCategoryModal('emergency_notice', 'জরুরি নোটিশ')"><div class="icon">⚠️</div><div class="title">জরুরি নোটিশ</div></div>
+      <div class="card" onclick="openCategoryModal('other_notice', 'অন্যান্য নোটিশ')"><div class="icon">📌</div><div class="title">অন্যান্য</div></div>
+    </div>
+
+    <!-- ২. সামাজিক ও স্বাস্থ্য সেবা -->
+    <div class="section-title">🤝 সামাজিক ও স্বাস্থ্য সেবা</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('volunteer', 'স্বেচ্ছাসেবক')"><div class="icon">🙋‍♂️</div><div class="title">স্বেচ্ছাসেবক</div></div>
+      <div class="card" onclick="openCategoryModal('blood', 'রক্তদাতা')"><div class="icon">🩸</div><div class="title">রক্তদাতা</div></div>
+      <div class="card" onclick="openCategoryModal('relief', 'ত্রাণ কর্মসূচি')"><div class="icon">📦</div><div class="title">ত্রাণ কর্মসূচি</div></div>
+      <div class="card" onclick="openCategoryModal('social_org', 'সামাজিক সংগঠন')"><div class="icon">👥</div><div class="title">সামাজিক সংগঠন</div></div>
+      <div class="card" onclick="openCategoryModal('help', 'সাহায্য /সহযোগিতা')"><div class="icon">🤲</div><div class="title">সাহায্য/সহযোগিতা</div></div>
+      <div class="card" onclick="openCategoryModal('health_awareness', 'স্বাস্থ্য সচেতনতা')"><div class="icon">🩺</div><div class="title">স্বাস্থ্য সচেতনতা</div></div>
+    </div>
+
+    <!-- ৩. জরুরি সেবা (এক ট্যাপে কল) -->
     <div class="section-title">🚨 জরুরি সেবা (এক ট্যাপে কল)</div>
     <div class="grid-container">
       <div class="card" onclick="openCategoryModal('police', 'পুলিশ')"><div class="icon">👮</div><div class="title">পুলিশ</div></div>
       <div class="card" onclick="openCategoryModal('fire', 'ফায়ার সার্ভিস')"><div class="icon">🚒</div><div class="title">ফায়ার সার্ভিস</div></div>
       <div class="card" onclick="openCategoryModal('ambulance', 'অ্যাম্বুলেন্স')"><div class="icon">🚑</div><div class="title">অ্যাম্বুলেন্স</div></div>
       <div class="card" onclick="openCategoryModal('hospital', 'হাসপাতাল')"><div class="icon">🏥</div><div class="title">হাসপাতাল</div></div>
-    </div>
-
-    <!-- ২. সামাজিক ও স্বাস্থ্য সেবা -->
-    <div class="section-title">🤝 সামাজিক ও স্বাস্থ্য সেবা</div>
-    <div class="grid-container">
-      <div class="card" onclick="openCategoryModal('blood', 'রক্তদাতা')"><div class="icon">🩸</div><div class="title">রক্তদাতা</div></div>
       <div class="card" onclick="openCategoryModal('doctor', 'ডাক্তার')"><div class="icon">👨‍⚕️</div><div class="title">ডাক্তার</div></div>
+      <div class="card" onclick="openCategoryModal('hotline', 'জরুরি হটলাইন')"><div class="icon">📞</div><div class="title">জরুরি হটলাইন</div></div>
+      <div class="card" onclick="openCategoryModal('electricity', 'পল্লী বিদ্যুৎ')"><div class="icon">⚡</div><div class="title">পল্লী বিদ্যুৎ</div></div>
     </div>
 
-    <!-- ৩. অ্যাডমিন প্যানেল -->
+    <!-- ৪. প্রতিষ্ঠান সমূহ -->
+    <div class="section-title">🏢 প্রতিষ্ঠান সমূহ</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('primary_school', 'প্রাথমিক বিদ্যালয়')"><div class="icon">🏫</div><div class="title">প্রাথমিক বিদ্যালয়</div></div>
+      <div class="card" onclick="openCategoryModal('high_school', 'উচ্চ বিদ্যালয়')"><div class="icon">🏫</div><div class="title">উচ্চ বিদ্যালয়</div></div>
+      <div class="card" onclick="openCategoryModal('sec_school', 'মাধ্যমিক বিদ্যালয়')"><div class="icon">🏫</div><div class="title">মাধ্যমিক বিদ্যালয়</div></div>
+      <div class="card" onclick="openCategoryModal('college', 'কলেজ')"><div class="icon">🏛️</div><div class="title">কলেজ</div></div>
+      <div class="card" onclick="openCategoryModal('madrasa', 'মাদ্রাসা')"><div class="icon">🕌</div><div class="title">মাদ্রাসা</div></div>
+      <div class="card" onclick="openCategoryModal('coaching', 'কোচিং সেন্টার')"><div class="icon">📚</div><div class="title">কোচিং সেন্টার</div></div>
+    </div>
+
+    <!-- ৫. ধর্মীয় তথ্য -->
+    <div class="section-title">🕌 ধর্মীয় তথ্য</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('mosque', 'মসজিদ')"><div class="icon">🕌</div><div class="title">মসজিদ</div></div>
+      <div class="card" onclick="openCategoryModal('namaz', 'নামাজের সময় সূচি')"><div class="icon">⏰</div><div class="title">নামাজের সময়</div></div>
+      <div class="card" onclick="openCategoryModal('eid', 'ঈদের জামাত')"><div class="icon">🌙</div><div class="title">ঈদের জামাত</div></div>
+      <div class="card" onclick="openCategoryModal('mahfil', 'মাহফিল')"><div class="icon">📢</div><div class="title">মাহফিল</div></div>
+      <div class="card" onclick="openCategoryModal('ramadan', 'সাহরি/ইফতার')"><div class="icon">🌇</div><div class="title">সাহরি/ইফতার</div></div>
+      <div class="card" onclick="openCategoryModal('sun_time', 'সূর্যদয়/সূর্যাস্ত')"><div class="icon">☀️</div><div class="title">সূর্যদয়/সূর্যাস্ত</div></div>
+    </div>
+
+    <!-- ৬. অভিযোগ ও মতামত -->
+    <div class="section-title">📝 অভিযোগ ও মতামত</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('complain', 'অভিযোগ করুন')"><div class="icon">✍️</div><div class="title">অভিযোগ করুন</div></div>
+      <div class="card" onclick="openCategoryModal('suggestion', 'পরামর্শ')"><div class="icon">💡</div><div class="title">পরামর্শ</div></div>
+      <div class="card" onclick="openCategoryModal('feedback', 'আপনার মতামত')"><div class="icon">💬</div><div class="title">আপনার মতামত</div></div>
+      <div class="card" onclick="openCategoryModal('complain_status', 'অভিযোগের অবস্থা')"><div class="icon">📊</div><div class="title">অভিযোগের অবস্থা</div></div>
+      <div class="card" onclick="openCategoryModal('urgent_complain', 'জরুরি অভিযোগ')"><div class="icon">🚨</div><div class="title">জরুরি অভিযোগ</div></div>
+    </div>
+
+    <!-- ৭. অনুষ্ঠান ও ইভেন্ট -->
+    <div class="section-title">🎉 অনুষ্ঠান ও ইভেন্ট</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('local_event', 'স্থানীয় অনুষ্ঠান')"><div class="icon">🎪</div><div class="title">স্থানীয় অনুষ্ঠান</div></div>
+      <div class="card" onclick="openCategoryModal('national_day', 'জাতীয় দিবস')"><div class="icon">🇧🇩</div><div class="title">জাতীয় দিবস</div></div>
+      <div class="card" onclick="openCategoryModal('cultural', 'সাংস্কৃতিক অনুষ্ঠান')"><div class="icon">🎭</div><div class="title">সাংস্কৃতিক অনুষ্ঠান</div></div>
+      <div class="card" onclick="openCategoryModal('event_sports', 'খেলাধুলা ইভেন্ট')"><div class="icon">⚽</div><div class="title">খেলাধুলা</div></div>
+    </div>
+
+    <!-- ৮. আমার প্রোফাইল & সেটিংস -->
+    <div class="section-title">👤 আমার প্রোফাইল</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('profile', 'প্রোফাইল')"><div class="icon">👤</div><div class="title">প্রোফাইল</div></div>
+      <div class="card" onclick="openCategoryModal('favorite', 'প্রিয় তালিকা')"><div class="icon">⭐</div><div class="title">প্রিয় তালিকা</div></div>
+      <div class="card" onclick="openCategoryModal('lang', 'ভাষা')"><div class="icon">🌐</div><div class="title">ভাষা</div></div>
+      <div class="card" onclick="openCategoryModal('settings', 'সেটিংস')"><div class="icon">⚙️</div><div class="title">সেটিংস</div></div>
+    </div>
+
+    <!-- ৯. অ্যাডমিন প্যানেল -->
     <div class="section-title">🔐 অ্যাডমিন প্যানেল</div>
     <div class="grid-container">
       <div class="card" onclick="openAdminAddModal()"><div class="icon">➕</div><div class="title">নতুন তথ্য যোগ</div></div>
       <div class="card" onclick="openAdminManageModal('edit')"><div class="icon">✏️</div><div class="title">তথ্য সম্পাদনা</div></div>
       <div class="card" onclick="openAdminManageModal('delete')"><div class="icon">❌</div><div class="title">তথ্য মুছে ফেলা</div></div>
+      <div class="card" onclick="openCategoryModal('notice_publish', 'নোটিশ প্রকাশ')"><div class="icon">📢</div><div class="title">নোটিশ প্রকাশ</div></div>
+      <div class="card" onclick="openCategoryModal('img_upload', 'ছবি আপলোড')"><div class="icon">🖼️</div><div class="title">ছবি আপলোড</div></div>
+      <div class="card" onclick="openCategoryModal('user_manage', 'ইউজার ম্যানেজমেন্ট')"><div class="icon">👥</div><div class="title">ইউজার ম্যানেজমেন্ট</div></div>
+      <div class="card" onclick="openCategoryModal('reports', 'রিপোর্ট')"><div class="icon">📊</div><div class="title">রিপোর্ট</div></div>
     </div>
+
+    <!-- ১০. স্মার্ট ফিচার -->
+    <div class="section-title">🤖 স্মার্ট ফিচার</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('push_notif', 'পুশ নোটিফিকেশন')"><div class="icon">🔔</div><div class="title">পুশ নোটিফিকেশন</div></div>
+      <div class="card" onclick="openCategoryModal('union_chat', 'ইউনিয়ন চ্যাট')"><div class="icon">💬</div><div class="title">ইউনিয়ন চ্যাট</div></div>
+      <div class="card" onclick="openCategoryModal('ai_helper', 'AI সহকারী')"><div class="icon">🤖</div><div class="title">AI সহকারী</div></div>
+      <div class="card" onclick="openCategoryModal('gps_service', 'GPS সেবা')"><div class="icon">📍</div><div class="title">GPS সেবা</div></div>
+      <div class="card" onclick="toggleTheme()"><div class="icon">🌙</div><div class="title">ডার্ক মোড</div></div>
+      <div class="card" onclick="openCategoryModal('offline_mode', 'অফলাইন তথ্য')"><div class="icon">⭐</div><div class="title">অফলাইন তথ্য</div></div>
+    </div>
+
+    <!-- ১১. আবহাওয়া -->
+    <div class="section-title">🌤️ আবহাওয়া</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('weather_today', 'আজকের আবহাওয়া')"><div class="icon">☀️</div><div class="title">আজকের আবহাওয়া</div></div>
+      <div class="card" onclick="openCategoryModal('weather_7days', '৭ দিনের পূর্বাভাস')"><div class="icon">📅</div><div class="title">৭ দিনের পূর্বাভাস</div></div>
+      <div class="card" onclick="openCategoryModal('rain_alert', 'বৃষ্টি সতর্কতা')"><div class="icon">🌧️</div><div class="title">বৃষ্টি সতর্কতা</div></div>
+    </div>
+
+    <!-- ১২. খেলাধুলা -->
+    <div class="section-title">🏆 খেলাধুলা</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('tournament', 'টুর্নামেন্ট')"><div class="icon">🏆</div><div class="title">টুর্নামেন্ট</div></div>
+      <div class="card" onclick="openCategoryModal('match_schedule', 'ম্যাচ সূচি')"><div class="icon">📅</div><div class="title">ম্যাচ সূচি</div></div>
+      <div class="card" onclick="openCategoryModal('sports_result', 'ফলাফল')"><div class="icon">🎯</div><div class="title">ফলাফল</div></div>
+      <div class="card" onclick="openCategoryModal('point_table', 'পয়েন্ট টেবিল')"><div class="icon">📈</div><div class="title">পয়েন্ট টেবিল</div></div>
+      <div class="card" onclick="openCategoryModal('local_club', 'স্থানীয় ক্লাব')"><div class="icon">🛡️</div><div class="title">স্থানীয় ক্লাব</div></div>
+      <div class="card" onclick="openCategoryModal('players', 'খেলোয়াড়')"><div class="icon">🏃</div><div class="title">খেলোয়াড়</div></div>
+      <div class="card" onclick="openCategoryModal('sports_update', 'আজকের খেলার আপডেট')"><div class="icon">⚡</div><div class="title">খেলার আপডেট</div></div>
+    </div>
+
+    <!-- ১৩. অন্যান্য ও পরিচিতি -->
+    <div class="section-title">ℹ️ অন্যান্য ও পরিচিতি</div>
+    <div class="grid-container">
+      <div class="card" onclick="openCategoryModal('photo_gallery', 'ছবি গ্যালারি')"><div class="icon">📷</div><div class="title">ছবি গ্যালারি</div></div>
+      <div class="card" onclick="openCategoryModal('video_gallery', 'ভিডিও গ্যালারি')"><div class="icon">🎥</div><div class="title">ভিডিও গ্যালারি</div></div>
+      <div class="card" onclick="openCategoryModal('about_kamarerchar', 'কামারের চর পরিচিতি')"><div class="icon">🌾</div><div class="title">কামারের চর পরিচিতি</div></div>
+    </div>
+
   </div>
 
   <!-- ডাইনামিক মোডাল -->
@@ -232,34 +343,90 @@
   </div>
 
   <script>
+    // ক্যাটাগরি ম্যাপিং (এডমিন ড্রপডাউনের জন্য)
     const categoryNames = {
+      union_notice: "ইউনিয়ন নোটিশ",
+      govt_notice: "সরকারি ঘোষণা",
+      edu_notice: "শিক্ষা নোটিশ",
+      emergency_notice: "জরুরি নোটিশ",
+      other_notice: "অন্যান্য নোটিশ",
+      volunteer: "স্বেচ্ছাসেবক",
+      blood: "রক্তদাতা",
+      relief: "ত্রাণ কর্মসূচি",
+      social_org: "সামাজিক সংগঠন",
+      help: "সাহায্য/সহযোগিতা",
+      health_awareness: "স্বাস্থ্য সচেতনতা",
       police: "পুলিশ",
       fire: "ফায়ার সার্ভিস",
       ambulance: "অ্যাম্বুলেন্স",
       hospital: "হাসপাতাল",
-      blood: "রক্তদাতা",
-      doctor: "ডাক্তার"
+      doctor: "ডাক্তার",
+      hotline: "জরুরি হটলাইন",
+      electricity: "পল্লী বিদ্যুৎ",
+      primary_school: "প্রাথমিক বিদ্যালয়",
+      high_school: "উচ্চ বিদ্যালয়",
+      sec_school: "মাধ্যমিক বিদ্যালয়",
+      college: "কলেজ",
+      madrasa: "মাদ্রাসা",
+      coaching: "কোচিং সেন্টার",
+      mosque: "মসজিদ",
+      namaz: "নামাজের সময় সূচি",
+      eid: "ঈদের জামাত",
+      mahfil: "মাহফিল",
+      ramadan: "সাহরি/ইফতার",
+      sun_time: "সূর্যদয়/সূর্যাস্ত",
+      complain: "অভিযোগ করুন",
+      suggestion: "পরামর্শ",
+      feedback: "আপনার মতামত",
+      complain_status: "অভিযোগের অবস্থা",
+      urgent_complain: "জরুরি অভিযোগ",
+      local_event: "স্থানীয় অনুষ্ঠান",
+      national_day: "জাতীয় দিবস",
+      cultural: "সাংস্কৃতিক অনুষ্ঠান",
+      event_sports: "খেলাধুলা ইভেন্ট",
+      profile: "প্রোফাইল",
+      favorite: "প্রিয় তালিকা",
+      lang: "ভাষা",
+      settings: "সেটিংস",
+      push_notif: "পুশ নোটিফিকেশন",
+      union_chat: "ইউনিয়ন চ্যাট",
+      ai_helper: "AI সহকারী",
+      gps_service: "GPS সেবা",
+      offline_mode: "অফলাইন তথ্য",
+      weather_today: "আজকের আবহাওয়া",
+      weather_7days: "৭ দিনের পূর্বাভাস",
+      rain_alert: "বৃষ্টি সতর্কতা",
+      tournament: "টুর্নামেন্ট",
+      match_schedule: "ম্যাচ সূচি",
+      sports_result: "ফলাফল",
+      point_table: "পয়েন্ট টেবিল",
+      local_club: "স্থানীয় ক্লাব",
+      players: "খেলোয়াড়",
+      sports_update: "আজকের খেলার আপডেট",
+      photo_gallery: "ছবি গ্যালারি",
+      video_gallery: "ভিডিও গ্যালারি",
+      about_kamarerchar: "কামারের চর পরিচিতি"
     };
 
     let appData = JSON.parse(localStorage.getItem('kamarerCharData')) || {};
 
-    // ক্যাটাগরির তথ্য দেখানোর মোডাল
+    // ১. সাধারণ ব্যবহারকারীর তথ্য দেখার মোডাল
     function openCategoryModal(catKey, catTitle) {
       document.getElementById('modalTitle').innerText = catTitle;
       const items = appData[catKey] || [];
       let bodyHtml = "";
 
       if (items.length === 0) {
-        bodyHtml = "<p>বর্তমানে কোনো তথ্য উপলব্ধ নেই।</p>";
+        bodyHtml = "<p style='color: #777;'>বর্তমানে এই ক্যাটাগরিতে কোনো তথ্য যোগ করা হয়নি। অ্যাডমিন প্যানেল থেকে তথ্য যুক্ত করুন।</p>";
       } else {
         items.forEach(item => {
           bodyHtml += `
             <div class="data-item">
               <div>
                 <strong>${item.title}</strong><br>
-                <small>${item.detail}</small>
+                <small>${item.detail || ''}</small>
               </div>
-              ${item.phone ? `<a href="tel:${item.phone}" style="background:#00695c; color:white; padding:5px 10px; border-radius:4px; text-decoration:none;">কল</a>` : ''}
+              ${item.phone ? `<a href="tel:${item.phone}" style="background:#00695c; color:white; padding:6px 12px; border-radius:4px; text-decoration:none; font-size:0.85rem;">কল করুন</a>` : ''}
             </div>
           `;
         });
@@ -268,32 +435,32 @@
       document.getElementById('infoModal').style.display = 'flex';
     }
 
-    // ১. নতুন তথ্য যোগ করার ফরম মোডাল
+    // ২. নতুন তথ্য যোগ করার মোডাল
     function openAdminAddModal() {
       document.getElementById('modalTitle').innerText = "নতুন তথ্য যোগ করুন";
       let options = Object.keys(categoryNames).map(k => `<option value="${k}">${categoryNames[k]}</option>`).join('');
       
       document.getElementById('modalBody').innerHTML = `
         <form onsubmit="saveNewData(event)">
-          <label>ক্যাটাগরি:</label>
+          <label>ক্যাটাগরি নির্বাচন করুন:</label>
           <select id="addCatKey">${options}</select>
           
           <label>শিরোনাম/নাম:</label>
-          <input type="text" id="addTitle" required placeholder="যেমন: কামারের চর থানা">
+          <input type="text" id="addTitle" required placeholder="যেমন: কামারের চর থানা / ড. আব্দুর রহিম">
           
           <label>ফোন নম্বর (যদি থাকে):</label>
           <input type="text" id="addPhone" placeholder="০১৭XXXXXXXX">
 
           <label>বিস্তারিত বিবরণ:</label>
-          <textarea id="addDetail" rows="3" placeholder="বিবরণ লিখুন..."></textarea>
+          <textarea id="addDetail" rows="3" placeholder="বিস্তারিত বিবরণ লিখুন..."></textarea>
           
-          <button type="submit" class="btn-submit">সংরক্ষণ করুন</button>
+          <button type="submit" class="btn-submit">➕ সংরক্ষণ করুন</button>
         </form>
       `;
       document.getElementById('infoModal').style.display = 'flex';
     }
 
-    // ডাটা সেভ করার ফাংশন
+    // তথ্য ডাটাবেজে জমা রাখা
     function saveNewData(e) {
       e.preventDefault();
       const cat = document.getElementById('addCatKey').value;
@@ -309,9 +476,9 @@
       closeModal();
     }
 
-    // ২. তথ্য সম্পাদনা / মুছে ফেলার মোডাল
+    // ৩. তথ্য সম্পাদনা ও মোছার মোডাল
     function openAdminManageModal(action) {
-      document.getElementById('modalTitle').innerText = action === 'edit' ? "তথ্য সম্পাদনা" : "তথ্য মুছে ফেলুন";
+      document.getElementById('modalTitle').innerText = action === 'edit' ? "তথ্য সম্পাদনা করুন" : "তথ্য মুছে ফেলুন";
       
       let html = "";
       let count = 0;
@@ -323,7 +490,7 @@
           html += `
             <div class="data-item">
               <div>
-                <small><strong>[${categoryNames[catKey]}]</strong></small><br>
+                <small style="color:#00695c;"><strong>[${categoryNames[catKey]}]</strong></small><br>
                 <strong>${item.title}</strong>
               </div>
               <div>
@@ -337,23 +504,23 @@
       });
 
       if (count === 0) {
-        html = "<p>সম্পাদনা বা মোছার জন্য কোনো তথ্য পাওয়া যায়নি।</p>";
+        html = "<p style='color: #777;'>সম্পাদনা বা মোছার জন্য কোনো তথ্য যোগ করা নেই। প্রথমে 'নতুন তথ্য যোগ' করুন।</p>";
       }
 
       document.getElementById('modalBody').innerHTML = html;
       document.getElementById('infoModal').style.display = 'flex';
     }
 
-    // আইটেম মোছা
+    // তথ্য মোছা
     function deleteItem(catKey, index) {
-      if (confirm("আপনি কি নিশ্চিত এটি মুছে ফেলতে চান?")) {
+      if (confirm("আপনি কি নিশ্চিত যে এই তথ্যটি মুছে ফেলতে চান?")) {
         appData[catKey].splice(index, 1);
         localStorage.setItem('kamarerCharData', JSON.stringify(appData));
         openAdminManageModal('delete');
       }
     }
 
-    // আইটেম এডিট করার ফর্ম
+    // তথ্য সম্পাদনা ফর্ম
     function editItem(catKey, index) {
       const item = appData[catKey][index];
       document.getElementById('modalTitle').innerText = "তথ্য সম্পাদনা করুন";
@@ -368,7 +535,7 @@
           <label>বিস্তারিত বিবরণ:</label>
           <textarea id="editDetail" rows="3">${item.detail || ''}</textarea>
           
-          <button type="submit" class="btn-submit" style="background:#f57c00;">আপডেট করুন</button>
+          <button type="submit" class="btn-submit" style="background:#f57c00;">✏️ আপডেট করুন</button>
         </form>
       `;
     }
@@ -381,7 +548,7 @@
         detail: document.getElementById('editDetail').value
       };
       localStorage.setItem('kamarerCharData', JSON.stringify(appData));
-      alert("তথ্য আপডেট করা হয়েছে!");
+      alert("তথ্য সফলভাবে আপডেট করা হয়েছে!");
       closeModal();
     }
 
@@ -399,4 +566,4 @@
     }
   </script>
 </body>
-</html>
+        </html>
