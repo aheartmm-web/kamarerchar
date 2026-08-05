@@ -1,217 +1,382 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আমাদের কামারের চর</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>আমাদের কামারের চর</title>
+  <style>
+    :root {
+      --bg-color: #f4f6f8;
+      --text-color: #2c3e50;
+      --card-bg: #ffffff;
+      --primary: #00695c;
+      --primary-hover: #004d40;
+      --accent: #1976d2;
+      --border-color: #e0e0e0;
+      --shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
 
-    <style>
-        :root {
-            --bg-color: #f4f6f9;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --primary-color: #008080;
-            --header-bg: #008080;
-            --shadow: rgba(0, 0, 0, 0.08);
-        }
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --card-bg: #1e1e1e;
+      --border-color: #333333;
+      --shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
 
-        .dark-mode {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #ffffff;
-            --primary-color: #00b3b3;
-            --header-bg: #1f1f1f;
-            --shadow: rgba(255, 255, 255, 0.05);
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: background 0.3s, color 0.3s; }
-        body { background-color: var(--bg-color); color: var(--text-color); padding-bottom: 30px; }
+    /* Top Bar */
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
 
-        .app-bar { background-color: var(--header-bg); color: white; padding: 15px; text-align: center; font-size: 18px; font-weight: bold; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px var(--shadow); display: flex; justify-content: space-between; align-items: center; }
-        .theme-btn { background: none; border: none; color: white; font-size: 18px; cursor: pointer; }
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
 
-        .search-container { padding: 15px; }
-        .search-input { width: 100%; padding: 12px 15px; border: 1px solid #ccc; border-radius: 12px; font-size: 14px; outline: none; background: var(--card-bg); color: var(--text-color); }
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
 
-        .container { padding: 0 15px; }
-        .section-title { font-size: 16px; font-weight: bold; margin: 15px 0 10px 0; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 3px; }
+    /* Container */
+    .container {
+      padding: 15px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-        .sub-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .card { background-color: var(--card-bg); padding: 14px 10px; border-radius: 12px; text-align: center; box-shadow: 0 2px 5px var(--shadow); font-size: 13px; font-weight: 600; cursor: pointer; user-select: none; }
-        .card:active { transform: scale(0.96); }
-        .icon { font-size: 22px; margin-bottom: 6px; display: block; }
+    /* Search Box */
+    .search-box {
+      margin-bottom: 20px;
+    }
 
-        .weather-card { background: linear-gradient(135deg, #00b4db, #0083b0); color: white; padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: center; }
+    .search-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      background-color: var(--card-bg);
+      color: var(--text-color);
+    }
 
-        /* Modal / Popup */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-box { background: var(--card-bg); color: var(--text-color); padding: 20px; border-radius: 15px; width: 100%; max-width: 400px; max-height: 80vh; overflow-y: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.3); position: relative; }
-        .modal-header { font-size: 18px; font-weight: bold; color: var(--primary-color); margin-bottom: 12px; border-bottom: 1px solid #ccc; padding-bottom: 8px; }
-        .close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-color); }
+    /* Section Styling */
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 20px 0 10px 0;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        .form-control { width: 100%; padding: 10px; margin-top: 8px; margin-bottom: 12px; border: 1px solid #ccc; border-radius: 8px; background: var(--card-bg); color: var(--text-color); }
-        .action-btn { background: var(--primary-color); color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; font-size: 14px; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; display: inline-block; }
-        
-        .item-list { list-style: none; margin-top: 10px; }
-        .item-list li { padding: 10px; border-bottom: 1px solid var(--shadow); display: flex; justify-content: space-between; align-items: center; }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 12px;
+    }
 
-        .notice-card { background: rgba(0, 128, 128, 0.08); padding: 10px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--primary-color); }
-    </style>
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+
+    .card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+
+    .card .title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 450px;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #888;
+    }
+
+    .modal-list {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0 0 0;
+    }
+
+    .modal-list li {
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-list li:last-child {
+      border-bottom: none;
+    }
+
+    .call-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="app-bar">
-        <span>আমাদের কামারের চর</span>
-        <button class="theme-btn" onclick="toggleTheme()" id="themeIcon">🌙</button>
+  <header>
+    <h1>আমাদের কামারের চর</h1>
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  </header>
+
+  <div class="container">
+    
+    <!-- Search Bar -->
+    <div class="search-box">
+      <input type="text" placeholder="খুঁজুন (যেমন: হাসপাতাল, পুলিশ, স্কুল...)">
     </div>
 
-    <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="খুঁজুন (যেমন: হাসপাতাল, পুলিশ...)" onkeyup="filterMenu()">
+    <!-- ১. নোটিশ ও আপডেট -->
+    <div class="section-title">📢 নোটিশ ও আপডেট</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('ইউনিয়ন নোটিশ')"><div class="icon">🏛️</div><div class="title">ইউনিয়ন নোটিশ</div></div>
+      <div class="card" onclick="openModal('সরকারি ঘোষণা')"><div class="icon">📜</div><div class="title">সরকারি ঘোষণা</div></div>
+      <div class="card" onclick="openModal('শিক্ষা নোটিশ')"><div class="icon">🎓</div><div class="title">শিক্ষা নোটিশ</div></div>
+      <div class="card" onclick="openModal('জরুরি নোটিশ')"><div class="icon">⚠️</div><div class="title">জরুরি নোটিশ</div></div>
+      <div class="card" onclick="openModal('অন্যান্য নোটিশ')"><div class="icon">📌</div><div class="title">অন্যান্য</div></div>
     </div>
 
-    <div class="container">
-
-        <!-- আবহাওয়া -->
-        <div class="section-block">
-            <div class="section-title">🌤️ আবহাওয়া</div>
-            <div class="weather-card">
-                <h3>আজকের আবহাওয়া: ৩০°C (রোদোজ্জ্বল)</h3>
-                <p>কামারের চর, শেরপুর</p>
-            </div>
-            <div class="sub-grid">
-                <div class="card" onclick="openModal('৭ দিনের আবহাওয়া পূর্বাভাস', '<p>📅 আগামী ৭ দিন কামারের চরে আংশিক মেঘলা ও রোদোজ্জ্বল আবহাওয়া থাকবে।</p>')"><span class="icon">📅</span>৭ দিনের পূর্বাভাস</div>
-                <div class="card" onclick="openModal('বৃষ্টি সতর্কতা', '<p>🌧️ আগামী ২৪ ঘণ্টায় কামারের চরে ভারী বৃষ্টির সম্ভাবনা নেই।</p>')"><span class="icon">🌧️</span>বৃষ্টি সতর্কতা</div>
-            </div>
-        </div>
-
-        <!-- লাইভ নোটিশ সেকশন (Firebase থেকে লোড হবে) -->
-        <div class="section-block">
-            <div class="section-title">📢 আপডেট নোটিশ (লাইভ)</div>
-            <div id="liveNotices">
-                <p style="font-size: 12px; color: gray;">নোটিশ লোড হচ্ছে...</p>
-            </div>
-        </div>
-
-        <!-- জরুরি সেবা -->
-        <div class="section-block">
-            <div class="section-title">🚨 জরুরি সেবা (এক ট্যাপে কল)</div>
-            <div class="sub-grid">
-                <div class="card" onclick="openModal('পুলিশ কন্টাক্ট', getCallList([['থানা ডিউটি অফিসার', 999], ['ওসি অফিস', '01320654321']]))"><span class="icon">👮</span>পুলিশ</div>
-                <div class="card" onclick="openModal('ফায়ার সার্ভিস', getCallList([['ফায়ার স্টেশন নিয়ন্ত্রণ কক্ষ'999]]))"><span class="icon">🚒</span>ফায়ার সার্ভিস</div>
-                <div class="card" onclick="openModal('অ্যাম্বুলেন্স', getCallList([['কামারের চর জরুরি অ্যাম্বুলেন্স', 999]]))"><span class="icon">🚑</span>অ্যাম্বুলেন্স</div>
-                <div class="card" onclick="window.location.href='tel:999'"><span class="icon">🤙</span>এক ট্যাপে ৯৯৯</div>
-            </div>
-        </div>
-
-        <!-- সামাজিক ও স্বাস্থ্য সেবা -->
-        <div class="section-block">
-            <div class="section-title">🤝 সামাজিক ও স্বাস্থ্য সেবা</div>
-            <div class="sub-grid">
-                <div class="card" onclick="openModal('রক্তদাতা তালিকা', getCallList([['রহিম (A+)', '01711111111'], ['করিম (B+)', '01822222222']]))"><span class="icon">🩸</span>রক্তদাতা</div>
-                <div class="card" onclick="openModal('হাসপাতাল', getMapList([['কামারের চর উপস্বাস্থ্য কেন্দ্র', 'Kamarer Char Health Complex']]))"><span class="icon">🏥</span>হাসপাতাল</div>
-            </div>
-        </div>
-
-        <!-- অভিযোগ ও অ্যাডমিন -->
-        <div class="section-block">
-            <div class="section-title">📝 সেবা ও কার্যক্রম</div>
-            <div class="sub-grid">
-                <div class="card" onclick="openComplaintForm()"><span class="icon">✍️</span>অভিযোগ পাঠান</div>
-                <div class="card" onclick="openAdminPanel()"><span class="icon">🔐</span>অ্যাডমিন প্যানেল</div>
-            </div>
-        </div>
-
+    <!-- ২. সামাজিক ও স্বাস্থ্য সেবা -->
+    <div class="section-title">🤝 সামাজিক ও স্বাস্থ্য সেবা</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('স্বেচ্ছাসেবক')"><div class="icon">🙋‍♂️</div><div class="title">স্বেচ্ছাসেবক</div></div>
+      <div class="card" onclick="openModal('রক্তদাতা')"><div class="icon">🩸</div><div class="title">রক্তদাতা</div></div>
+      <div class="card" onclick="openModal('ত্রাণ কর্মসূচি')"><div class="icon">📦</div><div class="title">ত্রাণ কর্মসূচি</div></div>
+      <div class="card" onclick="openModal('সামাজিক সংগঠন')"><div class="icon">👥</div><div class="title">সামাজিক সংগঠন</div></div>
+      <div class="card" onclick="openModal('সাহায্য /সহযোগিতা')"><div class="icon">🤲</div><div class="title">সাহায্য/সহযোগিতা</div></div>
+      <div class="card" onclick="openModal('স্বাস্থ্য সচেতনতা')"><div class="icon">🩺</div><div class="title">স্বাস্থ্য সচেতনতা</div></div>
     </div>
 
-    <!-- Modal Box -->
-    <div class="modal-overlay" id="appModal">
-        <div class="modal-box">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-            <div class="modal-header" id="modalTitle">শিরোনাম</div>
-            <div id="modalBody">লোডিং...</div>
-        </div>
+    <!-- ৩. জরুরি সেবা (এক ট্যাপে কল) -->
+    <div class="section-title">🚨 জরুরি সেবা (এক ট্যাপে কল)</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('পুলিশ')"><div class="icon">👮</div><div class="title">পুলিশ</div></div>
+      <div class="card" onclick="openModal('ফায়ার সার্ভিস')"><div class="icon">🚒</div><div class="title">ফায়ার সার্ভিস</div></div>
+      <div class="card" onclick="openModal('অ্যাম্বুলেন্স')"><div class="icon">🚑</div><div class="title">অ্যাম্বুলেন্স</div></div>
+      <div class="card" onclick="openModal('হাসপাতাল')"><div class="icon">🏥</div><div class="title">হাসপাতাল</div></div>
+      <div class="card" onclick="openModal('ডাক্তার')"><div class="icon">👨‍⚕️</div><div class="title">ডাক্তার</div></div>
+      <div class="card" onclick="openModal('জরুরি হটলাইন')"><div class="icon">📞</div><div class="title">জরুরি হটলাইন</div></div>
+      <div class="card" onclick="openModal('পল্লী বিদ্যুৎ')"><div class="icon">⚡</div><div class="title">পল্লী বিদ্যুৎ</div></div>
     </div>
 
-    <!-- UI Logic Script -->
-    <script>
-        function openModal(title, htmlContent) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalBody').innerHTML = htmlContent;
-            document.getElementById('appModal').style.display = 'flex';
-        }
+    <!-- ৪. প্রতিষ্ঠান সমূহ -->
+    <div class="section-title">🏢 প্রতিষ্ঠান সমূহ</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('প্রাথমিক বিদ্যালয়')"><div class="icon">🏫</div><div class="title">প্রাথমিক বিদ্যালয়</div></div>
+      <div class="card" onclick="openModal('উচ্চ বিদ্যালয়')"><div class="icon">🏫</div><div class="title">উচ্চ বিদ্যালয়</div></div>
+      <div class="card" onclick="openModal('মাধ্যমিক বিদ্যালয়')"><div class="icon">🏫</div><div class="title">মাধ্যমিক বিদ্যালয়</div></div>
+      <div class="card" onclick="openModal('কলেজ')"><div class="icon">🏛️</div><div class="title">কলেজ</div></div>
+      <div class="card" onclick="openModal('মাদ্রাসা')"><div class="icon">🕌</div><div class="title">মাদ্রাসা</div></div>
+      <div class="card" onclick="openModal('কোচিং সেন্টার')"><div class="icon">📚</div><div class="title">কোচিং সেন্টার</div></div>
+    </div>
 
-        function closeModal() {
-            document.getElementById('appModal').style.display = 'none';
-        }
+    <!-- ৫. ধর্মীয় তথ্য -->
+    <div class="section-title">🕌 ধর্মীয় তথ্য</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('মসজিদ')"><div class="icon">🕌</div><div class="title">মসজিদ</div></div>
+      <div class="card" onclick="openModal('নামাজের সময় সূচি')"><div class="icon">⏰</div><div class="title">নামাজের সময়</div></div>
+      <div class="card" onclick="openModal('ঈদের জামাত')"><div class="icon">🌙</div><div class="title">ঈদের জামাত</div></div>
+      <div class="card" onclick="openModal('মাহফিল')"><div class="icon">উ</div><div class="title">মাহফিল</div></div>
+      <div class="card" onclick="openModal('সাহরি/ইফতার')"><div class="icon">🌇</div><div class="title">সাহরি/ইফতার</div></div>
+      <div class="card" onclick="openModal('সূর্যদয়/সূর্যাস্ত')"><div class="icon">☀️</div><div class="title">সূর্যদয়/সূর্যাস্ত</div></div>
+    </div>
 
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const themeBtn = document.getElementById('themeIcon');
-            if (themeBtn) {
-                themeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-            }
-        }
+    <!-- ৬. অভিযোগ ও মতামত -->
+    <div class="section-title">📝 অভিযোগ ও মতামত</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('অভিযোগ করুন')"><div class="icon">✍️</div><div class="title">অভিযোগ করুন</div></div>
+      <div class="card" onclick="openModal('পরামর্শ')"><div class="icon">💡</div><div class="title">পরামর্শ</div></div>
+      <div class="card" onclick="openModal('আপনার মতামত')"><div class="icon">💬</div><div class="title">আপনার মতামত</div></div>
+      <div class="card" onclick="openModal('অভিযোগের অবস্থা')"><div class="icon">📊</div><div class="title">অভিযোগের অবস্থা</div></div>
+      <div class="card" onclick="openModal('জরুরি অভিযোগ')"><div class="icon">🚨</div><div class="title">জরুরি অভিযোগ</div></div>
+    </div>
 
-        function filterMenu() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let cards = document.getElementsByClassName('card');
-            for (let i = 0; i < cards.length; i++) {
-                let text = cards[i].innerText.toLowerCase();
-                cards[i].style.display = text.includes(input) ? "block" : "none";
-            }
-        }
+    <!-- ৭. অনুষ্ঠান ও ইভেন্ট -->
+    <div class="section-title">🎉 অনুষ্ঠান ও ইভেন্ট</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('স্থানীয় অনুষ্ঠান')"><div class="icon">🎪</div><div class="title">স্থানীয় অনুষ্ঠান</div></div>
+      <div class="card" onclick="openModal('জাতীয় দিবস')"><div class="icon">🇧🇩</div><div class="title">জাতীয় দিবস</div></div>
+      <div class="card" onclick="openModal('সাংস্কৃতিক অনুষ্ঠান')"><div class="icon">🎭</div><div class="title">সাংস্কৃতিক অনুষ্ঠান</div></div>
+      <div class="card" onclick="openModal('খেলাধুলা')"><div class="icon">⚽</div><div class="title">খেলাধুলা</div></div>
+    </div>
 
-        function getCallList(items) {
-            let html = '<ul class="item-list">';
-            items.forEach(item => {
-                html += `<li>
-                    <span><b>${item[0]}</b><br><small>${item[1]}</small></span>
-                    <a href="tel:${item[1]}" class="action-btn" style="width:auto; padding:5px 10px;">📞 কল</a>
-                </li>`;
-            });
-            html += '</ul>';
-            return html;
-        }
+    <!-- ৮. আমার প্রোফাইল & সেটিংস -->
+    <div class="section-title">👤 আমার প্রোফাইল</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('প্রোফাইল')"><div class="icon">👤</div><div class="title">প্রোফাইল</div></div>
+      <div class="card" onclick="openModal('প্রিয় তালিকা')"><div class="icon">⭐</div><div class="title">প্রিয় তালিকা</div></div>
+      <div class="card" onclick="openModal('ভাষা')"><div class="icon">🌐</div><div class="title">ভাষা</div></div>
+      <div class="card" onclick="openModal('সেটিংস')"><div class="icon">⚙️</div><div class="title">সেটিংস</div></div>
+    </div>
 
-        function getMapList(items) {
-            let html = '<ul class="item-list">';
-            items.forEach(item => {
-                let mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item[1])}`;
-                html += `<li>
-                    <span><b>${item[0]}</b></span>
-                    <a href="${mapUrl}" target="_blank" class="action-btn" style="width:auto; padding:5px 10px;">📍 ম্যাপ</a>
-                </li>`;
-            });
-            html += '</ul>';
-            return html;
-        }
+    <!-- ৯. অ্যাডমিন প্যানেল -->
+    <div class="section-title">🔐 অ্যাডমিন প্যানেল</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('নতুন তথ্য যোগ')"><div class="icon">➕</div><div class="title">নতুন তথ্য যোগ</div></div>
+      <div class="card" onclick="openModal('তথ্য সম্পাদনা')"><div class="icon">✏️</div><div class="title">তথ্য সম্পাদনা</div></div>
+      <div class="card" onclick="openModal('তথ্য মুছে ফেলা')"><div class="icon">❌</div><div class="title">তথ্য মুছে ফেলা</div></div>
+      <div class="card" onclick="openModal('নোটিশ প্রকাশ')"><div class="icon">📢</div><div class="title">নোটিশ প্রকাশ</div></div>
+      <div class="card" onclick="openModal('ছবি আপলোড')"><div class="icon">🖼️</div><div class="title">ছবি আপলোড</div></div>
+      <div class="card" onclick="openModal('ব্যবহারকারী ব্যবস্থাপনা')"><div class="icon">👥</div><div class="title">ইউজার ম্যানেজমেন্ট</div></div>
+      <div class="card" onclick="openModal('রিপোর্ট')"><div class="icon">📊</div><div class="title">রিপোর্ট</div></div>
+    </div>
 
-        function openComplaintForm() {
-            let formHtml = `
-                <label>আপনার নাম:</label>
-                <input type="text" id="cName" class="form-control" placeholder="নাম লিখুন">
-                <label>অভিযোগের বিস্তারিত:</label>
-                <textarea id="cText" class="form-control" rows="4" placeholder="অভিযোগ লিখুন..."></textarea>
-                <button class="action-btn" onclick="submitComplaintToFirebase()">Firebase-এ পাঠান</button>
-            `;
-            openModal("অভিযোগ জমা দিন", formHtml);
-        }
+    <!-- ১০. স্মার্ট ফিচার -->
+    <div class="section-title">🤖 স্মার্ট ফিচার</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('পুশ নোটিফিকেশন')"><div class="icon">🔔</div><div class="title">পুশ নোটিফিকেশন</div></div>
+      <div class="card" onclick="openModal('ইউনিয়ন চ্যাট/সহায়তা')"><div class="icon">💬</div><div class="title">ইউনিয়ন চ্যাট</div></div>
+      <div class="card" onclick="openModal('AI সহকারী')"><div class="icon">🤖</div><div class="title">AI সহকারী</div></div>
+      <div class="card" onclick="openModal('GPS দিয়ে নিকটস্থ সেবা')"><div class="icon">📍</div><div class="title">GPS সেবা</div></div>
+      <div class="card" onclick="openModal('ডার্ক মোড')"><div class="icon">🌙</div><div class="title">ডার্ক মোড</div></div>
+      <div class="card" onclick="openModal('অফলাইন মোড')"><div class="icon">⭐</div><div class="title">অফলাইন তথ্য</div></div>
+    </div>
 
-        function openAdminPanel() {
-            let adminHtml = `
-                <label>নোটিশের শিরোনাম:</label>
-                <input type="text" id="nTitle" class="form-control" placeholder="শিরোনাম">
-                <label>বিস্তারিত নোটিশ:</label>
-                <textarea id="nDetails" class="form-control" rows="3" placeholder="বিবরণ লিখুন"></textarea>
-                <button class="action-btn" onclick="addNoticeToFirebase()">নোটিশ প্রকাশ করুন</button>
-            `;
-            openModal("অ্যাডমিন প্যানেল", adminHtml);
-        }
-    </script>
+    <!-- ১১. আবহাওয়া -->
+    <div class="section-title">🌤️ আবহাওয়া</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('আজকের আবহাওয়া')"><div class="icon">☀️</div><div class="title">আজকের আবহাওয়া</div></div>
+      <div class="card" onclick="openModal('৭ দিনের পূর্বাভাস')"><div class="icon">📅</div><div class="title">৭ দিনের পূর্বাভাস</div></div>
+      <div class="card" onclick="openModal('বৃষ্টি সতর্কতা')"><div class="icon">🌧️</div><div class="title">বৃষ্টি সতর্কতা</div></div>
+    </div>
 
-    <!-- Firebase SDKs & Firebase Script -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="firebase-config.js"></script>
+    <!-- ১২. খেলাধুলা -->
+    <div class="section-title">🏆 খেলাধুলা</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('টুর্নামেন্ট')"><div class="icon">🏆</div><div class="title">টুর্নামেন্ট</div></div>
+      <div class="card" onclick="openModal('ম্যাচ সূচি')"><div class="icon">📅</div><div class="title">ম্যাচ সূচি</div></div>
+      <div class="card" onclick="openModal('ফলাফল')"><div class="icon">🎯</div><div class="title">ফলাফল</div></div>
+      <div class="card" onclick="openModal('পয়েন্ট টেবিল')"><div class="icon">📈</div><div class="title">পয়েন্ট টেবিল</div></div>
+      <div class="card" onclick="openModal('স্থানীয় ক্লাব')"><div class="icon">🛡️</div><div class="title">স্থানীয় ক্লাব</div></div>
+      <div class="card" onclick="openModal('খেলোয়াড়')"><div class="icon">🏃</div><div class="title">খেলোয়াড়</div></div>
+      <div class="card" onclick="openModal('আজকের খেলার আপডেট')"><div class="icon">⚡</div><div class="title">খেলার আপডেট</div></div>
+    </div>
+
+    <!-- ১৩. মিডিয়া ও কামারের চর পরিচিতি -->
+    <div class="section-title">ℹ️ অন্যান্য ও পরিচিতি</div>
+    <div class="grid-container">
+      <div class="card" onclick="openModal('ছবি')"><div class="icon">📷</div><div class="title">ছবি গ্যালারি</div></div>
+      <div class="card" onclick="openModal('ভিডিও')"><div class="icon">🎥</div><div class="title">ভিডিও গ্যালারি</div></div>
+      <div class="card" onclick="openModal('কামারের চর পরিচিতি')"><div class="icon">🌾</div><div class="title">কামারের চর পরিচিতি</div></div>
+    </div>
+
+  </div>
+
+  <!-- Common Modal Popup -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3 id="modalTitle">শিরোনাম</h3>
+      <p id="modalBody">তথ্য লোড হচ্ছে...</p>
+    </div>
+  </div>
+
+  <script>
+    // Modal Open Function
+    function openModal(title) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalBody').innerText = title + ' সম্পর্কিত তথ্য শীঘ্রই আসছে...';
+      document.getElementById('infoModal').style.display = 'flex';
+    }
+
+    // Modal Close Function
+    function closeModal() {
+      document.getElementById('infoModal').style.display = 'none';
+    }
+
+    // Toggle Dark Mode
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    // Close Modal when clicking outside
+    window.onclick = function(event) {
+      let modal = document.getElementById('infoModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
 </body>
-</html>
+                          </html>
