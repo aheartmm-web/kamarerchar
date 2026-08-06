@@ -1,500 +1,441 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>আমাদের শেরপুর</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Noto Sans Bengali',sans-serif;background:#f3f7fd;color:#132033;transition:.25s;padding-bottom:70px}
-body.dark{background:#101722;color:#fff}
-header{background:linear-gradient(135deg,#07916b,#0aa77b);color:#fff;padding:18px 28px 24px;position:sticky;top:0;z-index:1000}
-.top{display:grid;grid-template-columns:76px 1fr 76px;align-items:center;text-align:center}
-.logo{font-size:38px;font-weight:800;line-height:1.2}
-.sub{font-size:20px;margin-top:2px}
-.iconbtn{width:60px;height:60px;border:0;border-radius:16px;background:#ffffff20;color:#fff;font-size:32px;cursor:pointer}
-.clock{margin:22px auto 0;max-width:630px;background:#ffffff20;border-radius:22px;padding:11px;font-size:20px;text-align:center}
-.search{background:#fff;padding:23px 24px;position:sticky;top:160px;z-index:900}
-body.dark .search{background:#182230}
-.search input{width:100%;padding:17px 22px;border:2px solid #ddd;border-radius:20px;font-family:inherit;font-size:22px;outline:none}
-.container{max-width:1000px;margin:auto;padding:28px 28px}
-.section{font-size:28px;font-weight:800;margin:18px 0}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.card{background:#fff;border-radius:24px;padding:28px 14px;min-height:165px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 6px 20px #0000000d;cursor:pointer;transition:.2s}
-body.dark .card,body.dark .box,body.dark .notice{background:#182230;color:#fff}
-.card:hover{transform:translateY(-3px)}
-.card .emoji{font-size:54px;margin-bottom:12px}
-.card .title{font-size:22px;font-weight:700}
-.notice{background:#fff;border-radius:18px;padding:18px;margin:12px 0;box-shadow:0 4px 15px #0000000d}
-.notice h3{font-size:22px}.date{font-size:13px;opacity:.65;margin-top:6px}
-.box{background:#fff;border-radius:24px;padding:22px;box-shadow:0 5px 18px #0000000d;margin-bottom:18px}
-input,textarea,select{width:100%;padding:14px;border:1px solid #bbb;border-radius:12px;font-family:inherit;font-size:16px;margin:7px 0 12px;background:inherit;color:inherit}
-textarea{min-height:130px;resize:vertical}
-.btn{border:0;border-radius:12px;padding:12px 18px;background:#078e68;color:#fff;font-family:inherit;font-size:16px;cursor:pointer;margin:4px}
-.btn.red{background:#d72c35}.btn.blue{background:#2673c9}.btn.gray{background:#666}
-.bottom{position:fixed;bottom:0;left:0;right:0;height:70px;background:#fff;border-top:1px solid #ddd;display:grid;grid-template-columns:repeat(4,1fr);z-index:2000}
-body.dark .bottom{background:#182230;border-color:#333}
-.bottom div{text-align:center;font-size:14px;cursor:pointer;padding-top:7px}.bottom span{display:block;font-size:29px}
-.drawer{position:fixed;top:0;bottom:0;left:-330px;width:310px;background:#fff;z-index:3000;padding:22px;overflow:auto;transition:.25s;box-shadow:5px 0 25px #0003}
-body.dark .drawer{background:#182230;color:#fff}.drawer.open{left:0}.drawer h2{margin-bottom:15px}
-.drawer div{padding:13px;border-bottom:1px solid #ddd6;cursor:pointer;font-size:17px}
-.overlay{position:fixed;inset:0;background:#0008;z-index:2500;display:none}.overlay.show{display:block}
-footer{text-align:center;opacity:.65;padding:30px 10px}
-.small{font-size:14px;opacity:.7}
-.hidden{display:none!important}
-.admin-lock{text-align:center;padding:25px}
-.modal{position:fixed;inset:0;background:#0008;z-index:5000;display:flex;align-items:center;justify-content:center;padding:18px}
-.modal-box{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fff;color:#132033;border-radius:24px;padding:22px;box-shadow:0 15px 50px #0005}
-body.dark .modal-box{background:#182230;color:#fff}
-.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-.modal-close{border:0;background:#ddd;border-radius:50%;width:38px;height:38px;font-size:22px;cursor:pointer}
-@media(max-width:600px){
- header{padding:14px 14px 20px}.top{grid-template-columns:58px 1fr 58px}
- .logo{font-size:30px}.sub{font-size:17px}.iconbtn{width:50px;height:50px;font-size:27px}
- .clock{font-size:16px;margin-top:15px}.search{top:133px;padding:16px 22px}.search input{font-size:18px}
- .container{padding:20px 28px}.section{font-size:24px}.grid{gap:18px}.card{min-height:150px}.card .emoji{font-size:45px}.card .title{font-size:18px}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমাদের শেরপুর - সব সেবা একসাথে</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+            padding-bottom: 70px;
+        }
+        /* Header */
+        .header {
+            background-color: #006A4E;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            position: relative;
+        }
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        .header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        .date-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        .admin-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ffffff22;
+            color: #fff;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        /* Notice Bar */
+        .notice-bar {
+            background: #e8f5e9;
+            margin: 12px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #2e7d32;
+        }
+        .notice-badge {
+            background: #d32f2f;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 10px;
+        }
+        /* Navigation Tabs */
+        .nav-scroller {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            white-space: nowrap;
+        }
+        .nav-scroller::-webkit-scrollbar {
+            display: none;
+        }
+        .tab-btn {
+            background: #eee;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-right: 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            background: #006A4E;
+            color: #fff;
+            font-weight: bold;
+        }
+        /* Service Grid */
+        .grid-title {
+            padding: 12px 15px 5px;
+            font-size: 15px;
+            color: #006A4E;
+            font-weight: bold;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 10px 15px;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 12px 5px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            cursor: pointer;
+        }
+        .card i {
+            font-size: 22px;
+            color: #006A4E;
+            margin-bottom: 6px;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 50%;
+        }
+        .card span {
+            display: block;
+            font-size: 12px;
+            color: #333;
+            font-weight: 600;
+        }
+        .card p {
+            font-size: 10px;
+            color: #666;
+            margin-top: 2px;
+        }
+        .card .phone-btn {
+            display: inline-block;
+            margin-top: 6px;
+            background: #006A4E;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            text-decoration: none;
+        }
+        /* Bottom Menu */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            border-top: 1px solid #ddd;
+        }
+        .bottom-item {
+            text-align: center;
+            color: #666;
+            text-decoration: none;
+            font-size: 11px;
+        }
+        .bottom-item.active {
+            color: #006A4E;
+            font-weight: bold;
+        }
+        .bottom-item i {
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        /* Admin Modal Form */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 85%;
+            max-width: 400px;
+        }
+        .modal-content h3 {
+            margin-bottom: 12px;
+            color: #006A4E;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        .btn-submit {
+            background: #006A4E;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-close {
+            background: #777;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <div class="top">
-    <button class="iconbtn" onclick="openDrawer()">☰</button>
-    <div><div class="logo">আমাদের শেরপুর</div><div class="sub">সব সেবা একসাথে</div></div>
-    <button class="iconbtn" onclick="location.reload()" title="অ্যাপ রিফ্রেশ">🔄</button>
-  </div>
-  <div class="clock" id="clock"></div>
-</header>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <button class="admin-btn" onclick="openAdminModal()"><i class="fa-solid fa-plus"></i> যোগ করুন</button>
+            <h1>আমাদের শেরপুর</h1>
+            <p>সব সেবা একসাথে</p>
+            <div class="date-box">
+                <i class="fa-regular fa-calendar-days"></i> <span id="current-date">লোড হচ্ছে...</span>
+            </div>
+        </div>
 
-<div class="search"><input id="search" placeholder="🔍 তথ্য খুঁজুন..." oninput="searchPage()"></div>
-<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+        <!-- Notice -->
+        <div class="notice-bar">
+            <span class="notice-badge">UPDATE</span>
+            <marquee behavior="scroll" direction="left">শেরপুর জেলা অ্যাপে আপনাকে স্বাগতম! সকল জরুরি সেবা এবং আপডেট এখানে পাবেন।</marquee>
+        </div>
 
-<aside class="drawer" id="drawer">
-  <h2>☰ মেনু</h2>
-  <div onclick="home()">🏠 হোম</div>
-  <div onclick="page('notice')">📢 নোটিশ ও আপডেট</div>
-  <div onclick="page('social')">🤝 সামাজিক সেবা</div>
-  <div onclick="page('emergency'); return false">🚨 জরুরি সেবা</div>
-  <div onclick="page('institution')">🏫 প্রতিষ্ঠান সমূহ</div>
-  <div onclick="page('religion')">🕌 ধর্মীয় তথ্য</div>
-  <div onclick="page('complaint')">📝 অভিযোগ</div>
-  <div onclick="page('events')">🎉 অনুষ্ঠান</div>
-  <div onclick="page('sports')">⚽ খেলাধুলা</div>
-  <div onclick="page('profile')">👤 আমার প্রোফাইল</div>
-  <div onclick="page('admin')">⚙️ অ্যাডমিন</div>
-  <div onclick="page('settings')">🔧 সেটিংস</div>
-  <div onclick="toggleDark();closeDrawer()">🌙 ডার্ক মোড</div>
-  <div onclick="location.reload()">🔄 অ্যাপ রিফ্রেশ</div>
-  <div onclick="page('about')">ℹ️ কামারের চর পরিচিতি</div>
-  <div onclick="page('other')">📁 অন্যান্য</div>
-</aside>
+        <!-- Navigation Tabs -->
+        <div class="nav-scroller">
+            <button class="tab-btn active" onclick="filterCategory('all', this)">সব সেবা</button>
+            <button class="tab-btn" onclick="filterCategory('জরুরি সেবা', this)">জরুরি সেবা</button>
+            <button class="tab-btn" onclick="filterCategory('রক্তদাতা', this)">রক্তদাতা</button>
+            <button class="tab-btn" onclick="filterCategory('নোটিশ', this)">নোটিশ</button>
+            <button class="tab-btn" onclick="filterCategory('সামাজিক সেবা', this)">সামাজিক সেবা</button>
+            <button class="tab-btn" onclick="filterCategory('প্রতিষ্ঠান', this)">প্রতিষ্ঠান</button>
+            <button class="tab-btn" onclick="filterCategory('ধর্মীয় তথ্য', this)">ধর্মীয় তথ্য</button>
+            <button class="tab-btn" onclick="filterCategory('খেলাধুলা', this)">খেলাধুলা</button>
+        </div>
 
-<main class="container" id="app"></main>
-<footer>© ২০২৬ আমাদের শেরপুর<br>স্থানীয় তথ্য ও সেবার ডিজিটাল প্ল্যাটফর্ম</footer>
+        <!-- Service Grid Container -->
+        <div class="grid-title" id="section-title">সব সেবাসমূহ</div>
+        <div class="grid-container" id="services-grid">
+            <!-- Dynamic Content Load Here -->
+        </div>
 
-<nav class="bottom">
-  <div onclick="home()"><span>🏠</span>হোম</div>
-  <div onclick="page('notice')"><span>📢</span>নোটিশ</div>
-  <div onclick="page('emergency'); return false"><span>🚨</span>জরুরি</div>
-  <div onclick="page('profile')"><span>👤</span>প্রোফাইল</div>
-</nav>
-
-<script>
-const ADMIN_PASSWORD="454929";
-const defaultData={
- notices:[
-  {id:1,title:"স্বাগতম",text:"আমাদের শেরপুর অ্যাপে আপনাকে স্বাগতম।",date:"৬ আগস্ট, ২০২৬"}
- ],
- social:[],
- emergency:[
-  {id:101,title:"পুলিশ",icon:"👮",phone:"999",text:"জরুরি পুলিশ সেবা"},
-  {id:102,title:"ফায়ার সার্ভিস",icon:"🚒",phone:"999",text:"জরুরি ফায়ার সার্ভিস"},
-  {id:103,title:"অ্যাম্বুলেন্স",icon:"🚑",phone:"",text:"অ্যাম্বুলেন্স সেবা"},
-  {id:104,title:"হাসপাতাল",icon:"🏥",phone:"",text:"হাসপাতালের তথ্য"},
-  {id:105,title:"ডাক্তার",icon:"👨‍⚕️",phone:"",text:"ডাক্তারের তথ্য"},
-  {id:106,title:"জরুরি হটলাইন",icon:"☎️",phone:"999",text:"জাতীয় জরুরি হটলাইন"},
-  {id:107,title:"পল্লী বিদ্যুৎ",icon:"💡",phone:"",text:"বিদ্যুৎ সংক্রান্ত জরুরি সেবা"},
-  {id:108,title:"এক ট্যাপে কল",icon:"📞",phone:"999",text:"জরুরি প্রয়োজনে দ্রুত কল করুন"},
-  {id:109,title:"রক্তদাতা",icon:"🩸",phone:"",text:"রক্তদাতার তথ্য"},
-  {id:110,title:"স্বাস্থ্য সচেতনতা",icon:"❤️",phone:"",text:"স্বাস্থ্য সচেতনতার তথ্য"}
- ],
- institution:[],
- religion:[],
- events:[],
- sports:[],
- other:[],
- generalData:[],
- complaints:[],
- profile:{}
-};
-function load(k){let x=localStorage.getItem("sherpur_"+k);return x?JSON.parse(x):defaultData[k]}
-function save(k,v){localStorage.setItem("sherpur_"+k,JSON.stringify(v))}
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function nowDate(){return new Date().toLocaleDateString("bn-BD",{year:"numeric",month:"long",day:"numeric",weekday:"long"})}
-function clock(){
- let d=new Date();
- document.getElementById("clock").innerHTML="🕒 "+d.toLocaleTimeString("bn-BD",{hour:"2-digit",minute:"2-digit",second:"2-digit"})+"<br>"+nowDate();
-}
-setInterval(clock,1000);clock();
-
-/* Android/WebView back button guard:
-   First back closes modal/drawer; otherwise stays inside the app instead of
-   triggering an app-exit dialog. */
-(function(){
-  let backReady=false;
-  function armBack(){
-    try{
-      history.replaceState({sherpur:true,home:true},"",location.href);
-      history.pushState({sherpur:true,guard:true},"",location.href);
-      backReady=true;
-    }catch(e){}
-  }
-  window.addEventListener("popstate",function(){
-    try{
-      const modal=document.getElementById("modal");
-      const drawer=document.getElementById("drawer");
-      const overlay=document.getElementById("overlay");
-      if(modal && modal.style.display!=="none"){
-        if(typeof closeModal==="function") closeModal();
-      }else if(drawer && drawer.classList.contains("open")){
-        closeDrawer();
-      }else{
-        home();
-      }
-      if(backReady) history.pushState({sherpur:true,guard:true},"",location.href);
-    }catch(e){}
-  });
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",armBack);
-  else armBack();
-})();
-
-
-function openDrawer(){drawer.classList.add("open");overlay.classList.add("show")}
-function closeDrawer(){drawer.classList.remove("open");overlay.classList.remove("show")}
-function toggleDark(){document.body.classList.toggle("dark");localStorage.setItem("sherpur_dark",document.body.classList.contains("dark"))}
-if(localStorage.getItem("sherpur_dark")==="true")document.body.classList.add("dark");
-
-const menus=[
- ["📢","নোটিশ ও আপডেট","notice"],["🤝","সামাজিক সেবা","social"],["🚨","জরুরি সেবা","emergency"],
- ["🏫","প্রতিষ্ঠান সমূহ","institution"],["🕌","ধর্মীয় তথ্য","religion"],["📝","অভিযোগ","complaint"],
- ["🎉","অনুষ্ঠান","events"],["⚽","খেলাধুলা","sports"],["👤","আমার প্রোফাইল","profile"],
- ["⚙️","অ্যাডমিন","admin"],["🔧","সেটিংস","settings"],["ℹ️","কামারের চর পরিচিতি","about"]
-];
-function card(a,b,c){return `<div class="card" onclick="page('${c}')"><div class="emoji">${a}</div><div class="title">${b}</div></div>`}
-function home(){
- closeDrawer();
- let notices=load("notices") || [];
- let general=load("generalData") || [];
- app.innerHTML=`<div class="section">📢 নতুন নোটিশ ও আপডেট</div>
- <div id="homeNotices">${notices.slice(0,5).map(n=>noticeHtml(n)).join("")||'<div class="box">এখনো কোনো নোটিশ নেই।</div>'}</div>
- <div class="section">✨ সব সেবা একসাথে</div><div class="grid">${menus.map(x=>card(...x)).join("")}</div>
- ${general.length?`<div class="section">🆕 অ্যাডমিন থেকে যোগ করা তথ্য</div><div class="grid">${general.slice(0,20).map(x=>`<div class="card"><div class="emoji">📌</div><div class="title">${esc(x.title)}</div><p>${esc(x.details||"")}</p>${x.phone?`<button class="btn" onclick="event.stopPropagation();location.href='tel:${esc(x.phone)}'">📞 কল</button>`:""}</div>`).join("")}</div>`:""}`;
-}
-function noticeHtml(n){return `<div class="notice"><h3>📌 ${esc(n.title)}</h3><p>${esc(n.text)}</p><div class="date">📅 ${esc(n.date)}</div></div>`}
-
-function page(type){
- closeDrawer();
- if(type==="emergency"){ app.innerHTML=emergencyPage(); return; }
- if(type==="emergencyAdmin")return emergencyAdmin();
- if(type==="notice")return noticePage();
- if(type==="admin")return adminPage();
- if(type==="addData")return addData();
- if(type==="addNotice")return addNotice();
- if(type==="editData")return editData();
- if(type==="deleteData")return deleteData();
- if(type==="photoData")return photoData();
- if(type==="users")return users();
- if(type==="report")return report();
- if(type==="complaint")return complaintPage();
- if(type==="profile")return profilePage();
- if(type==="settings")return settingsPage();
- if(type==="about")return aboutPage();
- let data=load(type);
- let titles={
- social:["🤝 সামাজিক সেবা","স্বেচ্ছাসেবক","রক্তদাতা","ত্রাণ কর্মসূচি","সামাজিক সংগঠন","সাহায্য / সহযোগিতা","স্বাস্থ্য সচেতনতা"],
- institution:["🏫 প্রতিষ্ঠান সমূহ","প্রাথমিক বিদ্যালয়","কলেজ","মাদ্রাসা","কোচিং সেন্টার","উচ্চ বিদ্যালয়","মাধ্যমিক বিদ্যালয়"],
- religion:["🕌 ধর্মীয় তথ্য","মসজিদ","মাদ্রাসা","নামাজের সময় সূচি","ঈদের জামাত","মাহফিল","সাহরি/ইফতার","সূর্যদয়/সূর্যাস্ত"],
- events:["🎉 অনুষ্ঠান","স্থানীয় অনুষ্ঠান","জাতীয় দিবস","সাংস্কৃতিক অনুষ্ঠান","খেলাধুলা"],
- sports:["⚽ খেলাধুলা","টুর্নামেন্ট","ম্যাচ সূচি","ফলাফল","পয়েন্ট টেবিল","স্থানীয় ক্লাব","খেলোয়াড়","ছবি","ভিডিও","আজকের খেলার আপডেট"],
- other:["📁 অন্যান্য"]
- };
- let t=titles[type]||titles.other;
- app.innerHTML=`<div class="section">${t[0]}</div>${t.slice(1).map(name=>{
-   let rows=data.filter(x=>x.category===name);
-   return `<div class="box"><h3>${name}</h3>${rows.length?rows.map(itemHtml).join(""):`<p class="small">এই বিভাগের তথ্য এখনো যোগ করা হয়নি। অ্যাডমিন প্যানেল থেকে যোগ করুন।</p>`}</div>`
- }).join("")}`;
-}
-function itemHtml(x){
- return `<div class="notice"><h3>${esc(x.icon||"📌")} ${esc(x.title)}</h3><p>${esc(x.text||"")}</p>${x.phone?`<button class="btn" onclick="location.href='tel:${esc(x.phone)}'">📞 কল করুন</button>`:""}<div class="date">${esc(x.date||"")}</div></div>`
-}
-
-function noticePage(){
- let ns=load("notices");
- app.innerHTML=`<div class="section">📢 নোটিশ ও আপডেট</div>${ns.map(noticeHtml).join("")||'<div class="box">কোনো নোটিশ নেই।</div>'}`;
-}
-function complaintPage(){
- app.innerHTML=`<div class="section">📝 অভিযোগ ও মতামত</div><div class="box">
- <input id="cname" placeholder="আপনার নাম"><input id="cphone" placeholder="মোবাইল নম্বর">
- <select id="ctype"><option>সাধারণ অভিযোগ</option><option>জরুরি অভিযোগ</option><option>পরামর্শ</option><option>আপনার মতামত</option></select>
- <textarea id="ctext" placeholder="বিস্তারিত লিখুন"></textarea><button class="btn" onclick="submitComplaint()">📤 জমা দিন</button></div>
- <div class="box"><h3>📋 অভিযোগের অবস্থা</h3><div id="complaints">${load("complaints").map(c=>`<div class="notice"><b>${esc(c.type)}</b><p>${esc(c.text)}</p><span class="badge">${esc(c.status||"জমা হয়েছে")}</span></div>`).join("")||"<p>কোনো অভিযোগ নেই।</p>"}</div></div>`;
-}
-function submitComplaint(){
- let c={id:Date.now(),name:cname.value,phone:cphone.value,type:ctype.value,text:ctext.value,status:"জমা হয়েছে",date:nowDate()};
- if(!c.name||!c.text)return alert("নাম ও অভিযোগের বিবরণ লিখুন।");
- let a=load("complaints");a.unshift(c);save("complaints",a);alert("অভিযোগ সফলভাবে জমা হয়েছে।");complaintPage();
-}
-function profilePage(){
- let p=load("profile");
- app.innerHTML=`<div class="section">👤 আমার প্রোফাইল</div><div class="box">
- <input id="pname" value="${esc(p.name||"")}" placeholder="আপনার নাম"><input id="pphone" value="${esc(p.phone||"")}" placeholder="মোবাইল নম্বর"><input id="pvillage" value="${esc(p.village||"")}" placeholder="গ্রাম / এলাকা">
- <button class="btn" onclick="saveProfile()">💾 সংরক্ষণ</button></div>`;
-}
-function saveProfile(){save("profile",{name:pname.value,phone:pphone.value,village:pvillage.value});alert("প্রোফাইল সংরক্ষণ হয়েছে।")}
-
-
-function emergencyPage(){
-  const base=[
-    {id:101,title:"পুলিশ",icon:"👮",phone:"999",text:"জরুরি পুলিশ সেবা"},
-    {id:102,title:"ফায়ার সার্ভিস",icon:"🚒",phone:"999",text:"জরুরি ফায়ার সার্ভিস"},
-    {id:103,title:"অ্যাম্বুলেন্স",icon:"🚑",phone:"",text:"অ্যাম্বুলেন্স সেবা"},
-    {id:104,title:"হাসপাতাল",icon:"🏥",phone:"",text:"হাসপাতালের তথ্য"},
-    {id:105,title:"ডাক্তার",icon:"👨‍⚕️",phone:"",text:"ডাক্তারের তথ্য"},
-    {id:106,title:"জরুরি হটলাইন",icon:"☎️",phone:"999",text:"জাতীয় জরুরি হটলাইন"},
-    {id:107,title:"পল্লী বিদ্যুৎ",icon:"💡",phone:"",text:"বিদ্যুৎ সংক্রান্ত জরুরি সেবা"},
-    {id:108,title:"এক ট্যাপে কল",icon:"📞",phone:"999",text:"জরুরি প্রয়োজনে দ্রুত কল করুন"},
-    {id:109,title:"রক্তদাতা",icon:"🩸",phone:"",text:"রক্তদাতার তথ্য"},
-    {id:110,title:"স্বাস্থ্য সচেতনতা",icon:"❤️",phone:"",text:"স্বাস্থ্য সচেতনতার তথ্য"}
-  ];
-  let saved=load("emergency");
-  if(!Array.isArray(saved)) saved=[];
-  const savedTitles=new Set(saved.map(x=>x.title||x.name));
-  const missing=base.filter(x=>!savedTitles.has(x.title));
-  const items=base.concat(saved.filter(x=>!base.some(b=>b.title===(x.title||x.name))));
-  if(missing.length){ save("emergency",items); }
-  return `<div class="section">🚨 জরুরি সেবা</div>
-  <div class="box"><p class="small">জরুরি প্রয়োজনের গুরুত্বপূর্ণ সেবা ও যোগাযোগ।</p></div>
-  <div class="grid">
-  ${items.map(x=>{
-    const title=x.title||x.name||"জরুরি সেবা";
-    const phone=x.phone||"";
-    const text=x.text||x.details||"";
-    return `<div class="card">
-      <div class="emoji">${esc(x.icon||"🚨")}</div>
-      <div class="title">${esc(title)}</div>
-      <p>${esc(text)}</p>
-      ${phone?`<button class="btn" type="button" onclick="event.stopPropagation();callNumber('${esc(phone)}')">📞 এক ট্যাপে কল</button>`:"<p class='small'>যোগাযোগ নম্বর অ্যাডমিন থেকে যোগ করা যাবে।</p>"}
-    </div>`;
-  }).join("")}
-  </div>`;
-}
-function callNumber(n){
-  n=String(n||'').trim();
-  if(!n){alert('ফোন নম্বর দেওয়া হয়নি।');return;}
-  location.href='tel:'+n.replace(/[^\d+]/g,'');
-}
-
-function adminPage(){
-  if(sessionStorage.getItem("sherpur_admin")!=="yes") return adminLogin();
-  app.innerHTML=`<div class="section">⚙️ অ্যাডমিন প্যানেল</div>
-  <div class="box"><b>🔐 অ্যাডমিন মোড চালু</b>
-    <button class="btn red" type="button" onclick="adminLogout()">লগআউট</button>
-  </div>
-  <div class="grid">
-    ${card("➕","নতুন তথ্য যোগ","addData")}
-    ${card("📢","নোটিশ প্রকাশ","addNotice")}
-    ${card("✏️","তথ্য সম্পাদনা","editData")}
-    ${card("🗑️","তথ্য মুছে ফেলা","deleteData")}
-    ${card("🚨","জরুরি সেবা যোগ/ব্যবস্থাপনা","emergencyAdmin")}
-    ${card("📷","ছবি আপলোড","photoData")}
-    ${card("👥","ব্যবহারকারী ব্যবস্থাপনা","users")}
-    ${card("📋","রিপোর্ট","report")}
-  </div>`;
-}
-function emergencyAdmin(){
-  if(sessionStorage.getItem("sherpur_admin")!=="yes") return adminLogin();
-  const a=load('emergency')||[];
-  app.innerHTML=`<div class="section">🚨 জরুরি সেবা ব্যবস্থাপনা</div>
-  <div class="box">
-    <input id="eTitle" placeholder="সেবার নাম *">
-    <input id="ePhone" type="tel" inputmode="tel" placeholder="ফোন নম্বর">
-    <input id="eIcon" placeholder="আইকন (যেমন 🚑)" value="🚨">
-    <textarea id="eText" placeholder="বিস্তারিত তথ্য"></textarea>
-    <button class="btn" type="button" onclick="saveEmergency()">💾 জরুরি সেবা যোগ করুন</button>
-  </div>
-  <div class="box"><h3>বর্তমান জরুরি সেবা</h3>
-    ${a.length?a.map((x,i)=>`<div class="notice"><h3>${esc(x.icon||'🚨')} ${esc(x.title||'')}</h3>
-      <p>${esc(x.text||'')}</p><p>📞 ${esc(x.phone||'নম্বর নেই')}</p>
-      <button class="btn red" type="button" onclick="deleteEmergency(${i})">🗑️ মুছে ফেলুন</button>
-    </div>`).join(''):'<p>কোনো তথ্য নেই।</p>'}
-  </div>
-  <button class="btn" type="button" onclick="adminPage()">⚙️ অ্যাডমিন প্যানেলে ফিরে যান</button>`;
-}
-function saveEmergency(){
-  const title=(document.getElementById('eTitle')?.value||'').trim();
-  const phone=(document.getElementById('ePhone')?.value||'').trim();
-  const icon=(document.getElementById('eIcon')?.value||'🚨').trim();
-  const text=(document.getElementById('eText')?.value||'').trim();
-  if(!title){alert('সেবার নাম লিখুন।');return;}
-  const a=load('emergency')||[];
-  a.unshift({id:Date.now(),title,phone,icon:icon||'🚨',text,category:'জরুরি সেবা',date:nowDate()});
-  save('emergency',a);
-  alert('✅ জরুরি সেবা সফলভাবে যোগ হয়েছে।');
-  emergencyAdmin();
-}
-function deleteEmergency(i){
-  if(!confirm('এই জরুরি সেবাটি মুছে ফেলবেন?')) return;
-  const a=load('emergency')||[];
-  a.splice(i,1); save('emergency',a); emergencyAdmin();
-}
-
-function adminLogin(){
- app.innerHTML=`<div class="section">🔐 অ্যাডমিন প্যানেল</div><div class="box admin-lock">
- <h2>অ্যাডমিন হতে পাসওয়ার্ড দিন</h2><p class="small">অনুমোদিত ব্যক্তি ছাড়া অ্যাডমিন অংশ খোলা যাবে না।</p>
- <input id="adminPass" type="password" inputmode="numeric" placeholder="পাসওয়ার্ড">
- <button class="btn" onclick="loginAdmin()">🔐 প্রবেশ করুন</button></div>`;
-}
-function loginAdmin(){
- if(adminPass.value===ADMIN_PASSWORD){sessionStorage.setItem("sherpur_admin","yes");adminPage()}
- else alert("পাসওয়ার্ড ভুল হয়েছে।");
-}
-function adminLogout(){sessionStorage.removeItem("sherpur_admin");adminPage()}
-
-const categories=[
- ["social","🤝 সামাজিক সেবা",["স্বেচ্ছাসেবক","রক্তদাতা","ত্রাণ কর্মসূচি","সামাজিক সংগঠন","সাহায্য / সহযোগিতা","স্বাস্থ্য সচেতনতা"]],
- ["emergency","🚨 জরুরি সেবা",["পুলিশ","ফায়ার সার্ভিস","অ্যাম্বুলেন্স","হাসপাতাল","ডাক্তার","জরুরি হটলাইন","পল্লী বিদ্যুৎ","এক ট্যাপে কল"]],
- ["institution","🏫 প্রতিষ্ঠান সমূহ",["প্রাথমিক বিদ্যালয়","কলেজ","মাদ্রাসা","কোচিং সেন্টার","উচ্চ বিদ্যালয়","মাধ্যমিক বিদ্যালয়"]],
- ["religion","🕌 ধর্মীয় তথ্য",["মসজিদ","মাদ্রাসা","নামাজের সময় সূচি","ঈদের জামাত","মাহফিল","সাহরি/ইফতার","সূর্যদয়/সূর্যাস্ত"]],
- ["events","🎉 অনুষ্ঠান",["স্থানীয় অনুষ্ঠান","জাতীয় দিবস","সাংস্কৃতিক অনুষ্ঠান","খেলাধুলা"]],
- ["sports","⚽ খেলাধুলা",["টুর্নামেন্ট","ম্যাচ সূচি","ফলাফল","পয়েন্ট টেবিল","স্থানীয় ক্লাব","খেলোয়াড়","ছবি","ভিডিও","আজকের খেলার আপডেট"]],
- ["other","📁 অন্যান্য",["অন্যান্য"]]
-];
-function addNotice(){
- app.innerHTML=`<div class="section">📢 নতুন নোটিশ প্রকাশ</div><div class="box">
- <input id="ntitle" placeholder="নোটিশের শিরোনাম"><textarea id="ntext" placeholder="নোটিশের বিস্তারিত"></textarea>
- <button class="btn" onclick="saveNotice()">📢 প্রকাশ করুন</button></div>`;
-}
-function saveNotice(){
- if(!ntitle.value||!ntext.value)return alert("শিরোনাম ও বিস্তারিত লিখুন।");
- let a=load("notices");a.unshift({id:Date.now(),title:ntitle.value,text:ntext.value,date:nowDate()});save("notices",a);alert("নোটিশ প্রকাশ হয়েছে।");noticePage();
-}
-
-
-function openModal(title, html){
-  closeModal();
-  const m=document.createElement("div");
-  m.id="modal";
-  m.className="modal";
-  m.innerHTML=`<div class="modal-box" role="dialog" aria-modal="true">
-    <div class="modal-head"><h2>${esc(title)}</h2>
-      <button class="modal-close" type="button" onclick="closeModal()">×</button>
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="#" class="bottom-item active">
+                <i class="fa-solid fa-house"></i><br>হোম
+            </a>
+            <a href="#" class="bottom-item">
+                <i class="fa-solid fa-bell"></i><br>নোটিশ
+            </a>
+            <a href="#" class="bottom-item">
+                <i class="fa-solid fa-headset"></i><br>অভিযোগ
+            </a>
+            <a href="#" class="bottom-item">
+                <i class="fa-solid fa-gear"></i><br>সেটিংস
+            </a>
+        </div>
     </div>
-    ${html}
-  </div>`;
-  document.body.appendChild(m);
-  m.addEventListener("click",function(e){if(e.target===m)closeModal()});
-}
-function closeModal(){
-  const m=document.getElementById("modal");
-  if(m)m.remove();
-}
 
-function addData(){
-  if(sessionStorage.getItem("sherpur_admin")!=="yes") return adminLogin();
-  openModal('➕ নতুন তথ্য যোগ করুন', `
-    <div class="form">
-      <select id="newCat">
-        <option value="social">🤝 সামাজিক সেবা</option>
-        <option value="emergency">🚨 জরুরি সেবা</option>
-        <option value="institution">🏫 প্রতিষ্ঠান সমূহ</option>
-        <option value="religion">🕌 ধর্মীয় তথ্য</option>
-        <option value="events">🎉 অনুষ্ঠান</option>
-        <option value="sports">⚽ খেলাধুলা</option>
-        <option value="other">📁 অন্যান্য</option>
-      </select>
-      <input id="newTitle" placeholder="তথ্যের নাম *">
-      <input id="newCategory" placeholder="উপ-বিভাগের নাম (যেমন পুলিশ/স্বেচ্ছাসেবক)">
-      <input id="newPhone" type="tel" inputmode="tel" placeholder="ফোন নম্বর (প্রয়োজনে)">
-      <textarea id="newDetails" placeholder="বিস্তারিত তথ্য"></textarea>
-      <button class="btn" type="button" onclick="saveGeneralData()">💾 সংরক্ষণ করুন</button>
-    </div>`);
-}
-function saveGeneralData(){
-  if(sessionStorage.getItem("sherpur_admin")!=="yes"){closeModal();return adminLogin();}
-  const type=document.getElementById("newCat")?.value||"other";
-  const title=(document.getElementById("newTitle")?.value||"").trim();
-  const category=(document.getElementById("newCategory")?.value||"").trim();
-  const phone=(document.getElementById("newPhone")?.value||"").trim();
-  const text=(document.getElementById("newDetails")?.value||"").trim();
+    <!-- Admin Add Data Modal -->
+    <div class="modal" id="adminModal">
+        <div class="modal-content">
+            <h3>নতুন তথ্য যোগ করুন</h3>
+            <form id="addForm" onsubmit="saveNewData(event)">
+                <div class="form-group">
+                    <label>ক্যাটাগরি সিলেক্ট করুন</label>
+                    <select id="dataCategory" required>
+                        <option value="জরুরি সেবা">জরুরি সেবা</option>
+                        <option value="রক্তদাতা">রক্তদাতা</option>
+                        <option value="নোটিশ">নোটিশ</option>
+                        <option value="সামাজিক সেবা">সামাজিক সেবা</option>
+                        <option value="প্রতিষ্ঠান">প্রতিষ্ঠান</option>
+                        <option value="ধর্মীয় তথ্য">ধর্মীয় তথ্য</option>
+                        <option value="খেলাধুলা">খেলাধুলা</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>নাম / শিরোনাম</label>
+                    <input type="text" id="dataTitle" placeholder="যেমন: রক্তদাতা (O+)" required>
+                </div>
+                <div class="form-group">
+                    <label>ফোন নম্বর / বিস্তারিত</label>
+                    <input type="text" id="dataDetail" placeholder="যেমন: 01700000000">
+                </div>
+                <div class="form-group">
+                    <label>আইকন কোড (FontAwesome)</label>
+                    <input type="text" id="dataIcon" value="fa-circle-info" placeholder="fa-droplet">
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-close" onclick="closeAdminModal()">বন্ধ করুন</button>
+                    <button type="submit" class="btn-submit">সংরক্ষণ করুন</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-  if(!title){alert("তথ্যের নাম লিখুন।");return;}
+    <script>
+        // Default Services Data
+        let servicesData = [
+            { id: 1, name: 'পুলিশ', category: 'জরুরি সেবা', icon: 'fa-user-shield', detail: 'জরুরি কল' },
+            { id: 2, name: 'ফায়ার সার্ভিস', category: 'জরুরি সেবা', icon: 'fa-fire-extinguisher', detail: 'জরুরি সেবা' },
+            { id: 3, name: 'অ্যাম্বুলেন্স', category: 'জরুরি সেবা', icon: 'fa-truck-medical', detail: '২৪/৭ সার্ভিস' },
+            { id: 4, name: 'হাসপাতাল', category: 'জরুরি সেবা', icon: 'fa-hospital', detail: 'শেরপুর সদর' },
+            { id: 5, name: 'ডাক্তার', category: 'জরুরি সেবা', icon: 'fa-user-doctor', detail: 'পরামর্শ' },
+            { id: 6, name: 'রক্তদাতা O+', category: 'রক্তদাতা', icon: 'fa-droplet', detail: '01700000000' },
+            { id: 7, name: 'শিক্ষা প্রতিষ্ঠান', category: 'প্রতিষ্ঠান', icon: 'fa-school', detail: 'স্কুল ও কলেজ' },
+            { id: 8, name: 'নামাজের সময়', category: 'ধর্মীয় তথ্য', icon: 'fa-mosque', detail: 'সময়সূচি' },
+            { id: 9, name: 'টুর্নামেন্ট', category: 'খেলাধুলা', icon: 'fa-trophy', detail: 'আপডেট' }
+        ];
 
-  const item={
-    id:Date.now(),
-    title:title,
-    category:category||"অন্যান্য",
-    phone:phone,
-    text:text,
-    details:text,
-    icon:type==="emergency"?"🚨":"📌",
-    date:nowDate()
-  };
+        let currentFilter = 'all';
 
-  let list=load(type);
-  if(!Array.isArray(list)) list=[];
-  list.unshift(item);
-  save(type,list);
+        // Display Date
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('bn-BD', options);
 
-  let all=load("generalData");
-  if(!Array.isArray(all)) all=[];
-  all.unshift({...item,section:type});
-  save("generalData",all);
+        // Render Services based on Filter
+        function renderServices() {
+            const grid = document.getElementById('services-grid');
+            grid.innerHTML = '';
 
-  closeModal();
-  alert("✅ তথ্য সফলভাবে যোগ হয়েছে।");
-  page(type);
-}
+            const filteredData = currentFilter === 'all' 
+                ? servicesData 
+                : servicesData.filter(item => item.category === currentFilter);
 
-function fillSub(){
- let c=categories.find(x=>x[0]===cat.value);subcat.innerHTML=c[2].map(x=>`<option>${x}</option>`).join("");
-}
-function saveDataItem(){
- let type=cat.value,a=load(type);
- a.unshift({id:Date.now(),category:subcat.value,title:ititle.value,phone:iphone.value,text:itext.value,icon:iicon.value||"📌",date:nowDate()});
- save(type,a);alert("তথ্য সফলভাবে যোগ হয়েছে।");adminPage();
-}
-function editData(){
- app.innerHTML=`<div class="section">✏️ তথ্য সম্পাদনা</div><div class="box"><p>নিচে যে বিভাগ থেকে তথ্য সম্পাদনা করতে চান সেটি নির্বাচন করুন।</p>
- <select id="editCat" onchange="renderEdit()">${categories.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join("")}</select><div id="editList"></div></div>`;renderEdit();
-}
-function renderEdit(){
- let a=load(editCat.value);
- editList.innerHTML=a.length?a.map((x,i)=>`<div class="notice"><input id="et${i}" value="${esc(x.title)}"><textarea id="ex${i}">${esc(x.text||"")}</textarea><input id="ep${i}" value="${esc(x.phone||"")}" placeholder="ফোন"><button class="btn" onclick="updateItem('${editCat.value}',${i})">💾 সংরক্ষণ</button></div>`).join(""):"<p>কোনো তথ্য নেই।</p>";
-}
-function updateItem(type,i){
- let a=load(type);a[i].title=document.getElementById("et"+i).value;a[i].text=document.getElementById("ex"+i).value;a[i].phone=document.getElementById("ep"+i).value;save(type,a);alert("তথ্য আপডেট হয়েছে।");renderEdit();
-}
-function deleteData(){
- app.innerHTML=`<div class="section">🗑️ তথ্য মুছে ফেলা</div><div class="box">
- <select id="delCat" onchange="renderDelete()">${categories.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join("")}</select><div id="delList"></div></div>`;renderDelete();
-}
-function renderDelete(){
- let a=load(delCat.value);
- delList.innerHTML=a.length?a.map((x,i)=>`<div class="notice"><h3>${esc(x.title)}</h3><p>${esc(x.text||"")}</p><button class="btn red" onclick="removeItem('${delCat.value}',${i})">🗑️ মুছে ফেলুন</button></div>`).join(""):"<p>কোনো তথ্য নেই।</p>";
-}
-function removeItem(type,i){if(confirm("এই তথ্যটি মুছে ফেলবেন?")){let a=load(type);a.splice(i,1);save(type,a);renderDelete()}}
-function photoData(){app.innerHTML=`<div class="section">📷 ছবি আপলোড</div><div class="box"><input type="file" accept="image/*" multiple><p class="small">এই অংশে ছবির ফাইল নির্বাচন করা যাবে। ছবিগুলো স্থায়ীভাবে অনলাইনে রাখতে Firebase Storage সংযোগ প্রয়োজন হবে।</p></div>`}
-function users(){app.innerHTML=`<div class="section">👥 ব্যবহারকারী ব্যবস্থাপনা</div><div class="box"><p>এই ডেমো সংস্করণে ব্যবহারকারী তালিকা নেই। Firebase Authentication যুক্ত করলে এখানে ব্যবহারকারী নিয়ন্ত্রণ করা যাবে।</p></div>`}
-function report(){let c=load("complaints");app.innerHTML=`<div class="section">📋 রিপোর্ট</div><div class="box"><h3>অভিযোগ: ${c.length} টি</h3>${c.map(x=>`<div class="notice"><b>${esc(x.name)}</b> — ${esc(x.type)}<p>${esc(x.text)}</p></div>`).join("")}</div>`}
-function settingsPage(){app.innerHTML=`<div class="section">🔧 সেটিংস</div><div class="box"><h3>🌙 ডার্ক মোড</h3><button class="btn" onclick="toggleDark()">লাইট / ডার্ক পরিবর্তন</button></div><div class="box"><h3>🌐 ভাষা</h3><button class="btn">বাংলা</button><button class="btn blue" onclick="alert('English interface পরবর্তী সংস্করণে যোগ করা যাবে।')">English</button></div><div class="box"><h3>🔔 নোটিফিকেশন</h3><button class="btn" onclick="alert('নোটিফিকেশন সিস্টেম অনলাইনে Firebase যুক্ত করার পর চালু করা যাবে।')">নোটিফিকেশন সেটিংস</button></div>`}
-function aboutPage(){app.innerHTML=`<div class="section">ℹ️ কামারের চর পরিচিতি</div><div class="box"><h2>আমাদের শেরপুর</h2><p>স্থানীয় মানুষের জন্য তথ্য, সেবা, নোটিশ, জরুরি যোগাযোগ, সামাজিক সেবা, শিক্ষা, ধর্মীয় তথ্য, অনুষ্ঠান ও খেলাধুলার তথ্য এক জায়গায় দেওয়ার ডিজিটাল প্ল্যাটফর্ম।</p></div>`}
-function searchPage(){
- let q=search.value.toLowerCase().trim();if(!q)return;
- document.querySelectorAll(".card,.box,.notice").forEach(e=>e.style.display=e.innerText.toLowerCase().includes(q)?"":"none");
-}
-home();
-</script>
+            if (filteredData.length === 0) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#999; padding:20px;">কোনো তথ্য পাওয়া যায়নি।</p>`;
+                return;
+            }
+
+            filteredData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <i class="fa-solid ${item.icon}"></i>
+                    <span>${item.name}</span>
+                    <p>${item.detail || ''}</p>
+                    ${item.detail && item.detail.match(/\d+/) ? `<a href="tel:${item.detail}" class="phone-btn"><i class="fa-solid fa-phone"></i> কল</a>` : ''}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Category Filter Function
+        function filterCategory(category, btn) {
+            currentFilter = category;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('section-title').textContent = category === 'all' ? 'সব সেবাসমূহ' : category;
+            renderServices();
+        }
+
+        // Modal Handlers
+        function openAdminModal() {
+            document.getElementById('adminModal').style.display = 'flex';
+        }
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        // Save New Data from Admin Form
+        function saveNewData(event) {
+            event.preventDefault();
+            const category = document.getElementById('dataCategory').value;
+            const name = document.getElementById('dataTitle').value;
+            const detail = document.getElementById('dataDetail').value;
+            const icon = document.getElementById('dataIcon').value || 'fa-circle-info';
+
+            const newItem = {
+                id: Date.now(),
+                name: name,
+                category: category,
+                icon: icon,
+                detail: detail
+            };
+
+            servicesData.push(newItem);
+            closeAdminModal();
+            document.getElementById('addForm').reset();
+            
+            // Switch filter to the newly added category to show it
+            const matchingTab = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.trim() === category);
+            if (matchingTab) {
+                filterCategory(category, matchingTab);
+            } else {
+                renderServices();
+            }
+        }
+
+        // Initial Load
+        renderServices();
+    </script>
 </body>
-   </html>
+ </html>
