@@ -71,7 +71,7 @@ footer{text-align:center;opacity:.65;padding:30px 10px}
   <div onclick="home()">🏠 হোম</div>
   <div onclick="page('notice')">📢 নোটিশ ও আপডেট</div>
   <div onclick="page('social')">🤝 সামাজিক সেবা</div>
-  <div onclick="page('emergency')">🚨 জরুরি সেবা</div>
+  <div onclick="page('emergency'); return false">🚨 জরুরি সেবা</div>
   <div onclick="page('institution')">🏫 প্রতিষ্ঠান সমূহ</div>
   <div onclick="page('religion')">🕌 ধর্মীয় তথ্য</div>
   <div onclick="page('complaint')">📝 অভিযোগ</div>
@@ -92,7 +92,7 @@ footer{text-align:center;opacity:.65;padding:30px 10px}
 <nav class="bottom">
   <div onclick="home()"><span>🏠</span>হোম</div>
   <div onclick="page('notice')"><span>📢</span>নোটিশ</div>
-  <div onclick="page('emergency')"><span>🚨</span>জরুরি</div>
+  <div onclick="page('emergency'); return false"><span>🚨</span>জরুরি</div>
   <div onclick="page('profile')"><span>👤</span>প্রোফাইল</div>
 </nav>
 
@@ -153,6 +153,7 @@ function noticeHtml(n){return `<div class="notice"><h3>📌 ${esc(n.title)}</h3>
 
 function page(type){
  closeDrawer();
+ if(type==="emergency")return emergencyPage();
  if(type==="notice")return noticePage();
  if(type==="admin")return adminPage();
  if(type==="addData")return addData();
@@ -209,6 +210,29 @@ function profilePage(){
 }
 function saveProfile(){save("profile",{name:pname.value,phone:pphone.value,village:pvillage.value});alert("প্রোফাইল সংরক্ষণ হয়েছে।")}
 
+
+function emergencyPage(){
+  const items = getData('emergency', [
+    {name:'পুলিশ', phone:'999', icon:'👮'},
+    {name:'ফায়ার সার্ভিস', phone:'999', icon:'🚒'},
+    {name:'অ্যাম্বুলেন্স', phone:'999', icon:'🚑'},
+    {name:'জরুরি হটলাইন', phone:'999', icon:'☎️'}
+  ]);
+  return `
+    <section class="page">
+      <h2>🚨 জরুরি সেবা</h2>
+      <div class="grid">
+        ${items.map((x,i)=>`
+          <div class="card">
+            <div class="big">${esc(x.icon||'🚨')}</div>
+            <h3>${esc(x.name||'জরুরি সেবা')}</h3>
+            <p>${esc(x.phone||'')}</p>
+            <button class="btn" onclick="callNumber('${esc(x.phone||'')}')">📞 এক ট্যাপে কল</button>
+          </div>`).join('')}
+      </div>
+    </section>`;
+}
+
 function adminPage(){
  if(sessionStorage.getItem("sherpur_admin")!=="yes")return adminLogin();
  app.innerHTML=`<div class="section">⚙️ অ্যাডমিন প্যানেল</div>
@@ -250,14 +274,43 @@ function saveNotice(){
  if(!ntitle.value||!ntext.value)return alert("শিরোনাম ও বিস্তারিত লিখুন।");
  let a=load("notices");a.unshift({id:Date.now(),title:ntitle.value,text:ntext.value,date:nowDate()});save("notices",a);alert("নোটিশ প্রকাশ হয়েছে।");noticePage();
 }
+
 function addData(){
- app.innerHTML=`<div class="section">➕ নতুন তথ্য যোগ</div><div class="box">
- <select id="cat" onchange="fillSub()">${categories.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join("")}</select>
- <select id="subcat"></select><input id="ititle" placeholder="তথ্যের নাম / শিরোনাম"><input id="iphone" placeholder="ফোন নম্বর (প্রয়োজনে)">
- <textarea id="itext" placeholder="বিস্তারিত তথ্য"></textarea><input id="iicon" placeholder="আইকন / ইমোজি (যেমন 🏫)">
- <button class="btn" onclick="saveDataItem()">💾 তথ্য যোগ করুন</button></div>`;
- fillSub();
+  openModal('নতুন তথ্য যোগ', `
+    <div class="form">
+      <select id="newCat">
+        <option value="social">সামাজিক সেবা</option>
+        <option value="emergency">জরুরি সেবা</option>
+        <option value="institution">প্রতিষ্ঠান</option>
+        <option value="religion">ধর্মীয় তথ্য</option>
+        <option value="event">অনুষ্ঠান</option>
+        <option value="sports">খেলাধুলা</option>
+        <option value="other">অন্যান্য</option>
+      </select>
+      <input id="newTitle" placeholder="তথ্যের নাম">
+      <input id="newPhone" placeholder="ফোন নম্বর (প্রয়োজনে)">
+      <textarea id="newDetails" placeholder="বিস্তারিত তথ্য"></textarea>
+      <button class="btn" onclick="saveGeneralData()">💾 সংরক্ষণ করুন</button>
+    </div>`);
 }
+function saveGeneralData(){
+  const item={
+    id:Date.now(),
+    category:document.getElementById('newCat').value,
+    title:document.getElementById('newTitle').value.trim(),
+    phone:document.getElementById('newPhone').value.trim(),
+    details:document.getElementById('newDetails').value.trim(),
+    createdAt:new Date().toISOString()
+  };
+  if(!item.title){ alert('তথ্যের নাম লিখুন'); return; }
+  const list=getData('generalData',[]);
+  list.unshift(item);
+  saveData('generalData',list);
+  closeModal();
+  alert('তথ্য সফলভাবে যোগ হয়েছে।');
+  page(item.category==='emergency'?'emergency':'home');
+}
+
 function fillSub(){
  let c=categories.find(x=>x[0]===cat.value);subcat.innerHTML=c[2].map(x=>`<option>${x}</option>`).join("");
 }
@@ -298,4 +351,25 @@ function searchPage(){
 home();
 </script>
 </body>
- </html>
+</html>
+<script>
+function addEmergency(){
+  openModal('জরুরি সেবা যোগ', `
+    <div class="form">
+      <input id="eName" placeholder="সেবার নাম">
+      <input id="ePhone" placeholder="ফোন নম্বর">
+      <input id="eIcon" placeholder="আইকন (যেমন 🚑)">
+      <button class="btn" onclick="saveEmergency()">💾 সংরক্ষণ করুন</button>
+    </div>`);
+}
+function saveEmergency(){
+  const name=document.getElementById('eName').value.trim();
+  const phone=document.getElementById('ePhone').value.trim();
+  const icon=document.getElementById('eIcon').value.trim()||'🚨';
+  if(!name||!phone){alert('নাম ও ফোন নম্বর দিন');return;}
+  const list=getData('emergency',[]);
+  list.push({name,phone,icon});
+  saveData('emergency',list);
+  closeModal(); page('emergency');
+}
+                                                </script>
