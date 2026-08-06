@@ -1,440 +1,151 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>আমাদের কামারের চর</title>
-  <style>
-    :root {
-      --bg-color: #f4f6f8;
-      --text-color: #2c3e50;
-      --card-bg: #ffffff;
-      --primary: #00695c;
-      --danger: #d32f2f;
-      --warning: #f57c00;
-      --border-color: #e0e0e0;
-      --shadow: 0 4px 6px rgba(0,0,0,0.05);
-    }
-
-    body.dark-mode {
-      --bg-color: #121212;
-      --text-color: #e0e0e0;
-      --card-bg: #1e1e1e;
-      --border-color: #333333;
-      --shadow: 0 4px 6px rgba(0,0,0,0.3);
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    header {
-      background-color: var(--primary);
-      color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    header h1 { margin: 0; font-size: 1.2rem; }
-
-    .header-actions {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
-
-    .icon-btn {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.25rem;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .container {
-      padding: 15px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .search-box { margin-bottom: 20px; }
-    .search-box input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      box-sizing: border-box;
-      background-color: var(--card-bg);
-      color: var(--text-color);
-    }
-
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: var(--primary);
-      margin: 20px 0 10px 0;
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 5px;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: 12px;
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 12px 8px;
-      text-align: center;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-    }
-
-    .card .icon { font-size: 1.5rem; margin-bottom: 6px; }
-    .card .title { font-size: 0.85rem; font-weight: 500; line-height: 1.2; }
-
-    /* Modal Styling */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background-color: var(--card-bg);
-      padding: 20px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 450px;
-      max-height: 80vh;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px; right: 15px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #888;
-    }
-
-    form label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 0.85rem; }
-    form input, form select, form textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      box-sizing: border-box;
-      background-color: var(--card-bg);
-      color: var(--text-color);
-    }
-
-    .btn-submit {
-      width: 100%;
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 0.95rem;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .data-item {
-      background: rgba(0,0,0,0.03);
-      border: 1px solid var(--border-color);
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .btn-edit { background-color: var(--warning); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-    .btn-delete { background-color: var(--danger); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACOOD App</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+            padding-bottom: 60px;
+        }
+        .header {
+            background-color: #1E88E5;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .balance-card {
+            background: #fff;
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .balance-title {
+            font-size: 12px;
+            color: #666;
+        }
+        .balance-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1E88E5;
+            margin: 5px 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 15px;
+        }
+        .grid-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        .grid-item i {
+            font-size: 30px;
+            margin-bottom: 8px;
+            color: #1E88E5;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            background: #fff;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
+        }
+        .nav-item {
+            text-align: center;
+            color: #666;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        .nav-item.active {
+            color: #1E88E5;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>আমাদের কামারের চর</h1>
-    <div class="header-actions">
-      <button class="icon-btn" onclick="location.reload()" title="রিফ্রেশ করুন">🔄</button>
-      <button class="icon-btn" onclick="toggleTheme()" title="ডার্ক মোড">🌙</button>
-    </div>
-  </header>
-
-  <div class="container">
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="খুঁজুন (যেমন: হাসপাতাল, পুলিশ...)" onkeyup="filterItems()">
-    </div>
-
-    <!-- ১. নোটিশ ও আপডেট -->
-    <div class="section-title">📢 নোটিশ ও আপডেট</div>
-    <div class="grid-container">
-      <div class="card" onclick="openCategoryModal('union_notice', 'ইউনিয়ন নোটিশ')"><div class="icon">🏛️</div><div class="title">ইউনিয়ন নোটিশ</div></div>
-      <div class="card" onclick="openCategoryModal('govt_notice', 'সরকারি ঘোষণা')"><div class="icon">📜</div><div class="title">সরকারি ঘোষণা</div></div>
-      <div class="card" onclick="openCategoryModal('edu_notice', 'শিক্ষা নোটিশ')"><div class="icon">🎓</div><div class="title">শিক্ষা নোটিশ</div></div>
-    </div>
-
-    <!-- ২. সামাজিক ও স্বাস্থ্য সেবা -->
-    <div class="section-title">🤝 সামাজিক ও স্বাস্থ্য সেবা</div>
-    <div class="grid-container">
-      <div class="card" onclick="openCategoryModal('volunteer', 'স্বেচ্ছাসেবক')"><div class="icon">🙋‍♂️</div><div class="title">স্বেচ্ছাসেবক</div></div>
-      <div class="card" onclick="openCategoryModal('blood', 'রক্তদাতা')"><div class="icon">🩸</div><div class="title">রক্তদাতা</div></div>
-      <div class="card" onclick="openCategoryModal('doctor', 'ডাক্তার')"><div class="icon">👨‍⚕️</div><div class="title">ডাক্তার</div></div>
-      <div class="card" onclick="openCategoryModal('social_org', 'সামাজিক সংগঠন')"><div class="icon">👥</div><div class="title">সামাজিক সংগঠন</div></div>
-    </div>
-
-    <!-- ৩. জরুরি সেবা (এক ট্যাপে কল) -->
-    <div class="section-title">🚨 জরুরি সেবা (এক ট্যাপে কল)</div>
-    <div class="grid-container">
-      <div class="card" onclick="openCategoryModal('police', 'পুলিশ')"><div class="icon">👮</div><div class="title">পুলিশ</div></div>
-      <div class="card" onclick="openCategoryModal('fire', 'ফায়ার সার্ভিস')"><div class="icon">🚒</div><div class="title">ফায়ার সার্ভিস</div></div>
-      <div class="card" onclick="openCategoryModal('ambulance', 'অ্যাম্বুলেন্স')"><div class="icon">🚑</div><div class="title">অ্যাম্বুলেন্স</div></div>
-      <div class="card" onclick="openCategoryModal('hospital', 'হাসপাতাল')"><div class="icon">🏥</div><div class="title">হাসপাতাল</div></div>
-    </div>
-
-    <!-- ৪. প্রতিষ্ঠান সমূহ -->
-    <div class="section-title">🏢 প্রতিষ্ঠান সমূহ</div>
-    <div class="grid-container">
-      <div class="card" onclick="openCategoryModal('school', 'বিদ্যালয়')"><div class="icon">🏫</div><div class="title">বিদ্যালয়</div></div>
-      <div class="card" onclick="openCategoryModal('college', 'কলেজ')"><div class="icon">🏛️</div><div class="title">কলেজ</div></div>
-      <div class="card" onclick="openCategoryModal('madrasa', 'মাদ্রাসা')"><div class="icon">🕌</div><div class="title">মাদ্রাসা</div></div>
-    </div>
-
-    <!-- ৫. ধর্মীয় তথ্য -->
-    <div class="section-title">🕌 ধর্মীয় তথ্য</div>
-    <div class="grid-container">
-      <div class="card" onclick="openCategoryModal('mosque', 'মসজিদ')"><div class="icon">🕌</div><div class="title">মসজিদ</div></div>
-      <div class="card" onclick="openCategoryModal('namaz', 'নামাজের সময় সূচি')"><div class="icon">⏰</div><div class="title">নামাজের সময়</div></div>
-    </div>
-
-    <!-- ৬. অ্যাডমিন প্যানেল -->
-    <div class="section-title">🔐 অ্যাডমিন প্যানেল</div>
-    <div class="grid-container">
-      <div class="card" onclick="openAdminAddModal()"><div class="icon">➕</div><div class="title">নতুন তথ্য যোগ</div></div>
-      <div class="card" onclick="openAdminManageModal('edit')"><div class="icon">✏️</div><div class="title">তথ্য সম্পাদনা</div></div>
-      <div class="card" onclick="openAdminManageModal('delete')"><div class="icon">❌</div><div class="title">তথ্য মুছে ফেলা</div></div>
-    </div>
-  </div>
-
-  <!-- ডাইনামিক মোডাল -->
-  <div id="infoModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <h3 id="modalTitle">শিরোনাম</h3>
-      <div id="modalBody">তথ্য লোড হচ্ছে...</div>
-    </div>
-  </div>
-
-  <script>
-    const categoryNames = {
-      union_notice: "ইউনিয়ন নোটিশ",
-      govt_notice: "সরকারি ঘোষণা",
-      edu_notice: "শিক্ষা নোটিশ",
-      volunteer: "স্বেচ্ছাসেবক",
-      blood: "রক্তদাতা",
-      doctor: "ডাক্তার",
-      social_org: "সামাজিক সংগঠন",
-      police: "পুলিশ",
-      fire: "ফায়ার সার্ভিস",
-      ambulance: "অ্যাম্বুলেন্স",
-      hospital: "হাসপাতাল",
-      school: "বিদ্যালয়",
-      college: "কলেজ",
-      madrasa: "মাদ্রাসা",
-      mosque: "মসজিদ",
-      namaz: "নামাজের সময় সূচি"
-    };
-
-    let appData = JSON.parse(localStorage.getItem('kamarerCharData')) || {};
-
-    function openCategoryModal(catKey, catTitle) {
-      document.getElementById('modalTitle').innerText = catTitle;
-      const items = appData[catKey] || [];
-      let bodyHtml = "";
-
-      if (items.length === 0) {
-        bodyHtml = "<p style='color: #777;'>বর্তমানে কোনো তথ্য নেই। অ্যাডমিন প্যানেল থেকে তথ্য যোগ করুন।</p>";
-      } else {
-        items.forEach(item => {
-          bodyHtml += `
-            <div class="data-item">
-              <div>
-                <strong>${item.title}</strong><br>
-                <small>${item.detail || ''}</small>
-              </div>
-              ${item.phone ? `<a href="tel:${item.phone}" style="background:#00695c; color:white; padding:6px 12px; border-radius:4px; text-decoration:none; font-size:0.85rem;">কল করুন</a>` : ''}
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h2>ACOOD</h2>
+                <p style="font-size: 12px; opacity: 0.8;">স্বাগতম, ইউজার!</p>
             </div>
-          `;
-        });
-      }
-      document.getElementById('modalBody').innerHTML = bodyHtml;
-      document.getElementById('infoModal').style.display = 'flex';
-    }
+            <i class="fa-solid fa-right-from-bracket" style="font-size: 20px;"></i>
+        </div>
 
-    function openAdminAddModal() {
-      document.getElementById('modalTitle').innerText = "নতুন তথ্য যোগ করুন";
-      let options = Object.keys(categoryNames).map(k => `<option value="${k}">${categoryNames[k]}</option>`).join('');
-      
-      document.getElementById('modalBody').innerHTML = `
-        <form onsubmit="saveNewData(event)">
-          <label>ক্যাটাগরি নির্বাচন করুন:</label>
-          <select id="addCatKey">${options}</select>
-          
-          <label>শিরোনাম/নাম:</label>
-          <input type="text" id="addTitle" required placeholder="যেমন: শেরপুর হাসপাতাল">
-          
-          <label>ফোন নম্বর (যদি থাকে):</label>
-          <input type="text" id="addPhone" placeholder="০১৭XXXXXXXX">
+        <!-- Balance Card -->
+        <div class="balance-card">
+            <div class="balance-title">বর্তমান ব্যালেন্স</div>
+            <div class="balance-amount">৳ 0.00</div>
+            <div style="font-size: 10px; color: #888;">সর্বশেষ আপডেট: আজ</div>
+        </div>
 
-          <label>বিস্তারিত বিবরণ:</label>
-          <textarea id="addDetail" rows="3" placeholder="বিস্তারিত বিবরণ লিখুন..."></textarea>
-          
-          <button type="submit" class="btn-submit">➕ সংরক্ষণ করুন</button>
-        </form>
-      `;
-      document.getElementById('infoModal').style.display = 'flex';
-    }
-
-    function saveNewData(e) {
-      e.preventDefault();
-      const cat = document.getElementById('addCatKey').value;
-      const title = document.getElementById('addTitle').value;
-      const phone = document.getElementById('addPhone').value;
-      const detail = document.getElementById('addDetail').value;
-
-      if (!appData[cat]) appData[cat] = [];
-      appData[cat].push({ title, phone, detail });
-      localStorage.setItem('kamarerCharData', JSON.stringify(appData));
-
-      alert("তথ্য সফলভাবে যোগ করা হয়েছে!");
-      closeModal();
-    }
-
-    function openAdminManageModal(action) {
-      document.getElementById('modalTitle').innerText = action === 'edit' ? "তথ্য সম্পাদনা করুন" : "তথ্য মুছে ফেলুন";
-      let html = "";
-      let count = 0;
-
-      Object.keys(categoryNames).forEach(catKey => {
-        const items = appData[catKey] || [];
-        items.forEach((item, index) => {
-          count++;
-          html += `
-            <div class="data-item">
-              <div>
-                <small style="color:#00695c;"><strong>[${categoryNames[catKey]}]</strong></small><br>
-                <strong>${item.title}</strong>
-              </div>
-              <div>
-                ${action === 'edit' 
-                  ? `<button class="btn-edit" onclick="editItem('${catKey}', ${index})">সম্পাদনা</button>` 
-                  : `<button class="btn-delete" onclick="deleteItem('${catKey}', ${index})">মুছুন</button>`}
-              </div>
+        <!-- Services Grid -->
+        <h3 style="padding: 0 15px; font-size: 16px; color: #333;">প্রধান সেবাসমূহ</h3>
+        <div class="grid">
+            <div class="grid-item">
+                <i class="fa-solid fa-user"></i>
+                <div>প্রোফাইল</div>
             </div>
-          `;
-        });
-      });
+            <div class="grid-item">
+                <i class="fa-solid fa-calculator"></i>
+                <div>হিসাব/অ্যাকাউন্ট</div>
+            </div>
+            <div class="grid-item">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div>অর্ডার/সেবা</div>
+            </div>
+            <div class="grid-item">
+                <i class="fa-solid fa-bell"></i>
+                <div>নোটিফিকেশন</div>
+            </div>
+        </div>
 
-      if (count === 0) {
-        html = "<p style='color: #777;'>কোনো তথ্য যোগ করা নেই।</p>";
-      }
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-house" style="font-size: 18px;"></i><br>হোম
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-clock-history" style="font-size: 18px;"></i><br>কার্যক্রম
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gear" style="font-size: 18px;"></i><br>সেটিংস
+            </a>
+        </div>
+    </div>
 
-      document.getElementById('modalBody').innerHTML = html;
-      document.getElementById('infoModal').style.display = 'flex';
-    }
-
-    function deleteItem(catKey, index) {
-      if (confirm("আপনি কি এটি মুছে ফেলতে চান?")) {
-        appData[catKey].splice(index, 1);
-        localStorage.setItem('kamarerCharData', JSON.stringify(appData));
-        openAdminManageModal('delete');
-      }
-    }
-
-    function editItem(catKey, index) {
-      const item = appData[catKey][index];
-      document.getElementById('modalTitle').innerText = "তথ্য সম্পাদনা করুন";
-      document.getElementById('modalBody').innerHTML = `
-        <form onsubmit="saveEditData(event, '${catKey}', ${index})">
-          <label>শিরোনাম/নাম:</label>
-          <input type="text" id="editTitle" value="${item.title}" required>
-          
-          <label>ফোন নম্বর:</label>
-          <input type="text" id="editPhone" value="${item.phone || ''}">
-
-          <label>বিস্তারিত বিবরণ:</label>
-          <textarea id="editDetail" rows="3">${item.detail || ''}</textarea>
-          
-          <button type="submit" class="btn-submit" style="background:#f57c00;">✏️ আপডেট করুন</button>
-        </form>
-      `;
-    }
-
-    function saveEditData(e, catKey, index) {
-      e.preventDefault();
-      appData[catKey][index] = {
-        title: document.getElementById('editTitle').value,
-        phone: document.getElementById('editPhone').value,
-        detail: document.getElementById('editDetail').value
-      };
-      localStorage.setItem('kamarerCharData', JSON.stringify(appData));
-      alert("তথ্য আপডেট করা হয়েছে!");
-      closeModal();
-    }
-
-    function closeModal() {
-      document.getElementById('infoModal').style.display = 'none';
-    }
-
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-    }
-
-    function filterItems() {
-      let input = document.getElementById('searchInput').value.toLowerCase();
-      let cards = document.getElementsByClassName('card');
-      for (let i = 0; i < cards.length; i++) {
-        let title = cards[i].innerText.toLowerCase();
-        cards[i].style.display = title.includes(input) ? "" : "none";
-      }
-    }
-
-    window.onclick = function(event) {
-      let modal = document.getElementById('infoModal');
-      if (event.target == modal) closeModal();
-    }
-  </script>
 </body>
   </html>
