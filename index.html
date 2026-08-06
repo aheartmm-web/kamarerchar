@@ -44,6 +44,11 @@ footer{text-align:center;opacity:.65;padding:30px 10px}
 .small{font-size:14px;opacity:.7}
 .hidden{display:none!important}
 .admin-lock{text-align:center;padding:25px}
+.modal{position:fixed;inset:0;background:#0008;z-index:5000;display:flex;align-items:center;justify-content:center;padding:18px}
+.modal-box{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fff;color:#132033;border-radius:24px;padding:22px;box-shadow:0 15px 50px #0005}
+body.dark .modal-box{background:#182230;color:#fff}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.modal-close{border:0;background:#ddd;border-radius:50%;width:38px;height:38px;font-size:22px;cursor:pointer}
 @media(max-width:600px){
  header{padding:14px 14px 20px}.top{grid-template-columns:58px 1fr 58px}
  .logo{font-size:30px}.sub{font-size:17px}.iconbtn{width:50px;height:50px;font-size:27px}
@@ -105,12 +110,15 @@ const defaultData={
  social:[],
  emergency:[
   {id:101,title:"পুলিশ",icon:"👮",phone:"999",text:"জরুরি পুলিশ সেবা"},
-  {id:102,title:"ফায়ার সার্ভিস",icon:"🔥",phone:"999",text:"জরুরি ফায়ার সার্ভিস"},
-  {id:103,title:"অ্যাম্বুলেন্স",icon:"🚑",phone:"",text:"স্থানীয় অ্যাম্বুলেন্স নম্বর"},
+  {id:102,title:"ফায়ার সার্ভিস",icon:"🚒",phone:"999",text:"জরুরি ফায়ার সার্ভিস"},
+  {id:103,title:"অ্যাম্বুলেন্স",icon:"🚑",phone:"",text:"অ্যাম্বুলেন্স সেবা"},
   {id:104,title:"হাসপাতাল",icon:"🏥",phone:"",text:"হাসপাতালের তথ্য"},
   {id:105,title:"ডাক্তার",icon:"👨‍⚕️",phone:"",text:"ডাক্তারের তথ্য"},
-  {id:106,title:"জরুরি হটলাইন",icon:"📞",phone:"999",text:"জাতীয় জরুরি নম্বর"},
-  {id:107,title:"পল্লী বিদ্যুৎ",icon:"💡",phone:"",text:"বিদ্যুৎ সংক্রান্ত জরুরি তথ্য"}
+  {id:106,title:"জরুরি হটলাইন",icon:"☎️",phone:"999",text:"জাতীয় জরুরি হটলাইন"},
+  {id:107,title:"পল্লী বিদ্যুৎ",icon:"💡",phone:"",text:"বিদ্যুৎ সংক্রান্ত জরুরি সেবা"},
+  {id:108,title:"এক ট্যাপে কল",icon:"📞",phone:"999",text:"জরুরি প্রয়োজনে দ্রুত কল করুন"},
+  {id:109,title:"রক্তদাতা",icon:"🩸",phone:"",text:"রক্তদাতার তথ্য"},
+  {id:110,title:"স্বাস্থ্য সচেতনতা",icon:"❤️",phone:"",text:"স্বাস্থ্য সচেতনতার তথ্য"}
  ],
  institution:[],
  religion:[],
@@ -189,6 +197,7 @@ function noticeHtml(n){return `<div class="notice"><h3>📌 ${esc(n.title)}</h3>
 function page(type){
  closeDrawer();
  if(type==="emergency"){ app.innerHTML=emergencyPage(); return; }
+ if(type==="emergencyAdmin")return emergencyAdmin();
  if(type==="notice")return noticePage();
  if(type==="admin")return adminPage();
  if(type==="addData")return addData();
@@ -247,33 +256,100 @@ function saveProfile(){save("profile",{name:pname.value,phone:pphone.value,villa
 
 
 function emergencyPage(){
-  const items = load('emergency') || [
-    {title:'পুলিশ',phone:'999',icon:'👮',text:'জাতীয় জরুরি পুলিশ সেবা'},
-    {title:'ফায়ার সার্ভিস',phone:'999',icon:'🚒',text:'অগ্নি ও উদ্ধার সেবা'},
-    {title:'অ্যাম্বুলেন্স',phone:'999',icon:'🚑',text:'জরুরি অ্যাম্বুলেন্স সেবা'},
-    {title:'জাতীয় জরুরি হটলাইন',phone:'999',icon:'☎️',text:'জরুরি সহায়তা'}
+  const base=[
+    {id:101,title:"পুলিশ",icon:"👮",phone:"999",text:"জরুরি পুলিশ সেবা"},
+    {id:102,title:"ফায়ার সার্ভিস",icon:"🚒",phone:"999",text:"জরুরি ফায়ার সার্ভিস"},
+    {id:103,title:"অ্যাম্বুলেন্স",icon:"🚑",phone:"",text:"অ্যাম্বুলেন্স সেবা"},
+    {id:104,title:"হাসপাতাল",icon:"🏥",phone:"",text:"হাসপাতালের তথ্য"},
+    {id:105,title:"ডাক্তার",icon:"👨‍⚕️",phone:"",text:"ডাক্তারের তথ্য"},
+    {id:106,title:"জরুরি হটলাইন",icon:"☎️",phone:"999",text:"জাতীয় জরুরি হটলাইন"},
+    {id:107,title:"পল্লী বিদ্যুৎ",icon:"💡",phone:"",text:"বিদ্যুৎ সংক্রান্ত জরুরি সেবা"},
+    {id:108,title:"এক ট্যাপে কল",icon:"📞",phone:"999",text:"জরুরি প্রয়োজনে দ্রুত কল করুন"},
+    {id:109,title:"রক্তদাতা",icon:"🩸",phone:"",text:"রক্তদাতার তথ্য"},
+    {id:110,title:"স্বাস্থ্য সচেতনতা",icon:"❤️",phone:"",text:"স্বাস্থ্য সচেতনতার তথ্য"}
   ];
+  let saved=load("emergency");
+  if(!Array.isArray(saved)) saved=[];
+  const savedTitles=new Set(saved.map(x=>x.title||x.name));
+  const missing=base.filter(x=>!savedTitles.has(x.title));
+  const items=base.concat(saved.filter(x=>!base.some(b=>b.title===(x.title||x.name))));
+  if(missing.length){ save("emergency",items); }
   return `<div class="section">🚨 জরুরি সেবা</div>
-  <div class="grid">${items.map(x=>`
-    <div class="card">
-      <div class="emoji">${esc(x.icon||'🚨')}</div>
-      <div class="title">${esc(x.title||x.name||'জরুরি সেবা')}</div>
-      <p>${esc(x.text||x.details||'')}</p>
-      ${x.phone?`<button class="btn" onclick="event.stopPropagation();location.href='tel:${esc(x.phone)}'">📞 এক ট্যাপে কল</button>`:""}
-    </div>`).join("")}</div>`;
+  <div class="box"><p class="small">জরুরি প্রয়োজনের গুরুত্বপূর্ণ সেবা ও যোগাযোগ।</p></div>
+  <div class="grid">
+  ${items.map(x=>{
+    const title=x.title||x.name||"জরুরি সেবা";
+    const phone=x.phone||"";
+    const text=x.text||x.details||"";
+    return `<div class="card">
+      <div class="emoji">${esc(x.icon||"🚨")}</div>
+      <div class="title">${esc(title)}</div>
+      <p>${esc(text)}</p>
+      ${phone?`<button class="btn" type="button" onclick="event.stopPropagation();callNumber('${esc(phone)}')">📞 এক ট্যাপে কল</button>`:"<p class='small'>যোগাযোগ নম্বর অ্যাডমিন থেকে যোগ করা যাবে।</p>"}
+    </div>`;
+  }).join("")}
+  </div>`;
+}
+function callNumber(n){
+  n=String(n||'').trim();
+  if(!n){alert('ফোন নম্বর দেওয়া হয়নি।');return;}
+  location.href='tel:'+n.replace(/[^\d+]/g,'');
 }
 
 function adminPage(){
- if(sessionStorage.getItem("sherpur_admin")!=="yes")return adminLogin();
- app.innerHTML=`<div class="section">⚙️ অ্যাডমিন প্যানেল</div>
- <div class="box"><b>🔐 অ্যাডমিন মোড চালু</b><button class="btn red" onclick="adminLogout()">লগআউট</button></div>
- <div class="grid">
- ${card("➕","নতুন তথ্য যোগ","addData")}${card("📢","নোটিশ প্রকাশ","addNotice")}
- ${card("✏️","তথ্য সম্পাদনা","editData")}${card("🗑️","তথ্য মুছে ফেলা","deleteData")}
- ${card("📷","ছবি আপলোড","photoData")}${card("👥","ব্যবহারকারী ব্যবস্থাপনা","users")}
- ${card("📋","রিপোর্ট","report")}
- </div>`;
+  if(sessionStorage.getItem("sherpur_admin")!=="yes") return adminLogin();
+  app.innerHTML=`<div class="section">⚙️ অ্যাডমিন প্যানেল</div>
+  <div class="box"><b>🔐 অ্যাডমিন মোড চালু</b>
+    <button class="btn red" type="button" onclick="adminLogout()">লগআউট</button>
+  </div>
+  <div class="grid">
+    ${card("➕","নতুন তথ্য যোগ","addData")}
+    ${card("📢","নোটিশ প্রকাশ","addNotice")}
+    ${card("✏️","তথ্য সম্পাদনা","editData")}
+    ${card("🗑️","তথ্য মুছে ফেলা","deleteData")}
+    ${card("🚨","জরুরি সেবা যোগ/ব্যবস্থাপনা","emergencyAdmin")}
+    ${card("📷","ছবি আপলোড","photoData")}
+    ${card("👥","ব্যবহারকারী ব্যবস্থাপনা","users")}
+    ${card("📋","রিপোর্ট","report")}
+  </div>`;
 }
+function emergencyAdmin(){
+  if(sessionStorage.getItem("sherpur_admin")!=="yes") return adminLogin();
+  const a=load('emergency')||[];
+  app.innerHTML=`<div class="section">🚨 জরুরি সেবা ব্যবস্থাপনা</div>
+  <div class="box">
+    <input id="eTitle" placeholder="সেবার নাম *">
+    <input id="ePhone" type="tel" inputmode="tel" placeholder="ফোন নম্বর">
+    <input id="eIcon" placeholder="আইকন (যেমন 🚑)" value="🚨">
+    <textarea id="eText" placeholder="বিস্তারিত তথ্য"></textarea>
+    <button class="btn" type="button" onclick="saveEmergency()">💾 জরুরি সেবা যোগ করুন</button>
+  </div>
+  <div class="box"><h3>বর্তমান জরুরি সেবা</h3>
+    ${a.length?a.map((x,i)=>`<div class="notice"><h3>${esc(x.icon||'🚨')} ${esc(x.title||'')}</h3>
+      <p>${esc(x.text||'')}</p><p>📞 ${esc(x.phone||'নম্বর নেই')}</p>
+      <button class="btn red" type="button" onclick="deleteEmergency(${i})">🗑️ মুছে ফেলুন</button>
+    </div>`).join(''):'<p>কোনো তথ্য নেই।</p>'}
+  </div>
+  <button class="btn" type="button" onclick="adminPage()">⚙️ অ্যাডমিন প্যানেলে ফিরে যান</button>`;
+}
+function saveEmergency(){
+  const title=(document.getElementById('eTitle')?.value||'').trim();
+  const phone=(document.getElementById('ePhone')?.value||'').trim();
+  const icon=(document.getElementById('eIcon')?.value||'🚨').trim();
+  const text=(document.getElementById('eText')?.value||'').trim();
+  if(!title){alert('সেবার নাম লিখুন।');return;}
+  const a=load('emergency')||[];
+  a.unshift({id:Date.now(),title,phone,icon:icon||'🚨',text,category:'জরুরি সেবা',date:nowDate()});
+  save('emergency',a);
+  alert('✅ জরুরি সেবা সফলভাবে যোগ হয়েছে।');
+  emergencyAdmin();
+}
+function deleteEmergency(i){
+  if(!confirm('এই জরুরি সেবাটি মুছে ফেলবেন?')) return;
+  const a=load('emergency')||[];
+  a.splice(i,1); save('emergency',a); emergencyAdmin();
+}
+
 function adminLogin(){
  app.innerHTML=`<div class="section">🔐 অ্যাডমিন প্যানেল</div><div class="box admin-lock">
  <h2>অ্যাডমিন হতে পাসওয়ার্ড দিন</h2><p class="small">অনুমোদিত ব্যক্তি ছাড়া অ্যাডমিন অংশ খোলা যাবে না।</p>
@@ -305,40 +381,80 @@ function saveNotice(){
  let a=load("notices");a.unshift({id:Date.now(),title:ntitle.value,text:ntext.value,date:nowDate()});save("notices",a);alert("নোটিশ প্রকাশ হয়েছে।");noticePage();
 }
 
+
+function openModal(title, html){
+  closeModal();
+  const m=document.createElement("div");
+  m.id="modal";
+  m.className="modal";
+  m.innerHTML=`<div class="modal-box" role="dialog" aria-modal="true">
+    <div class="modal-head"><h2>${esc(title)}</h2>
+      <button class="modal-close" type="button" onclick="closeModal()">×</button>
+    </div>
+    ${html}
+  </div>`;
+  document.body.appendChild(m);
+  m.addEventListener("click",function(e){if(e.target===m)closeModal()});
+}
+function closeModal(){
+  const m=document.getElementById("modal");
+  if(m)m.remove();
+}
+
 function addData(){
-  openModal('নতুন তথ্য যোগ', `
+  if(sessionStorage.getItem("sherpur_admin")!=="yes") return adminLogin();
+  openModal('➕ নতুন তথ্য যোগ করুন', `
     <div class="form">
       <select id="newCat">
-        <option value="social">সামাজিক সেবা</option>
-        <option value="emergency">জরুরি সেবা</option>
-        <option value="institution">প্রতিষ্ঠান</option>
-        <option value="religion">ধর্মীয় তথ্য</option>
-        <option value="event">অনুষ্ঠান</option>
-        <option value="sports">খেলাধুলা</option>
-        <option value="other">অন্যান্য</option>
+        <option value="social">🤝 সামাজিক সেবা</option>
+        <option value="emergency">🚨 জরুরি সেবা</option>
+        <option value="institution">🏫 প্রতিষ্ঠান সমূহ</option>
+        <option value="religion">🕌 ধর্মীয় তথ্য</option>
+        <option value="events">🎉 অনুষ্ঠান</option>
+        <option value="sports">⚽ খেলাধুলা</option>
+        <option value="other">📁 অন্যান্য</option>
       </select>
-      <input id="newTitle" placeholder="তথ্যের নাম">
-      <input id="newPhone" placeholder="ফোন নম্বর (প্রয়োজনে)">
+      <input id="newTitle" placeholder="তথ্যের নাম *">
+      <input id="newCategory" placeholder="উপ-বিভাগের নাম (যেমন পুলিশ/স্বেচ্ছাসেবক)">
+      <input id="newPhone" type="tel" inputmode="tel" placeholder="ফোন নম্বর (প্রয়োজনে)">
       <textarea id="newDetails" placeholder="বিস্তারিত তথ্য"></textarea>
-      <button class="btn" onclick="saveGeneralData()">💾 সংরক্ষণ করুন</button>
+      <button class="btn" type="button" onclick="saveGeneralData()">💾 সংরক্ষণ করুন</button>
     </div>`);
 }
 function saveGeneralData(){
+  if(sessionStorage.getItem("sherpur_admin")!=="yes"){closeModal();return adminLogin();}
+  const type=document.getElementById("newCat")?.value||"other";
+  const title=(document.getElementById("newTitle")?.value||"").trim();
+  const category=(document.getElementById("newCategory")?.value||"").trim();
+  const phone=(document.getElementById("newPhone")?.value||"").trim();
+  const text=(document.getElementById("newDetails")?.value||"").trim();
+
+  if(!title){alert("তথ্যের নাম লিখুন।");return;}
+
   const item={
     id:Date.now(),
-    category:document.getElementById('newCat').value,
-    title:document.getElementById('newTitle').value.trim(),
-    phone:document.getElementById('newPhone').value.trim(),
-    details:document.getElementById('newDetails').value.trim(),
-    createdAt:new Date().toISOString()
+    title:title,
+    category:category||"অন্যান্য",
+    phone:phone,
+    text:text,
+    details:text,
+    icon:type==="emergency"?"🚨":"📌",
+    date:nowDate()
   };
-  if(!item.title){ alert('তথ্যের নাম লিখুন'); return; }
-  const list=load('generalData') || [];
+
+  let list=load(type);
+  if(!Array.isArray(list)) list=[];
   list.unshift(item);
-  save('generalData',list);
+  save(type,list);
+
+  let all=load("generalData");
+  if(!Array.isArray(all)) all=[];
+  all.unshift({...item,section:type});
+  save("generalData",all);
+
   closeModal();
-  alert('তথ্য সফলভাবে যোগ হয়েছে।');
-  page(item.category==='emergency'?'emergency':'home');
+  alert("✅ তথ্য সফলভাবে যোগ হয়েছে।");
+  page(type);
 }
 
 function fillSub(){
@@ -381,25 +497,4 @@ function searchPage(){
 home();
 </script>
 </body>
-</html>
-<script>
-function addEmergency(){
-  openModal('জরুরি সেবা যোগ', `
-    <div class="form">
-      <input id="eName" placeholder="সেবার নাম">
-      <input id="ePhone" placeholder="ফোন নম্বর">
-      <input id="eIcon" placeholder="আইকন (যেমন 🚑)">
-      <button class="btn" onclick="saveEmergency()">💾 সংরক্ষণ করুন</button>
-    </div>`);
-}
-function saveEmergency(){
-  const name=document.getElementById('eName').value.trim();
-  const phone=document.getElementById('ePhone').value.trim();
-  const icon=document.getElementById('eIcon').value.trim()||'🚨';
-  if(!name||!phone){alert('নাম ও ফোন নম্বর দিন');return;}
-  const list=load('emergency') || [];
-  list.push({name,phone,icon});
-  save('emergency',list);
-  closeModal(); page('emergency');
-}
- </script>
+   </html>
