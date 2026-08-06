@@ -31,7 +31,7 @@
         .header {
             background-color: #006A4E;
             color: white;
-            padding: 20px;
+            padding: 20px 15px;
             text-align: center;
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
@@ -65,26 +65,26 @@
             cursor: pointer;
             font-size: 12px;
         }
-        /* Notice Bar */
-        .notice-bar {
-            background: #e8f5e9;
-            margin: 12px;
-            padding: 8px 12px;
-            border-radius: 8px;
+        /* Search Box */
+        .search-container {
+            padding: 10px 15px 0;
+        }
+        .search-box {
             display: flex;
             align-items: center;
-            font-size: 12px;
-            color: #2e7d32;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 8px 12px;
         }
-        .notice-badge {
-            background: #d32f2f;
-            color: #fff;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-right: 8px;
-            font-size: 10px;
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+            margin-left: 8px;
+            font-size: 13px;
         }
+
         /* Navigation Tabs */
         .nav-scroller {
             display: flex;
@@ -111,6 +111,7 @@
             color: #fff;
             font-weight: bold;
         }
+
         /* Service Grid */
         .grid-title {
             padding: 12px 15px 5px;
@@ -120,48 +121,62 @@
         }
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
             padding: 10px 15px;
         }
         .card {
             background: #fff;
             border: 1px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 12px 5px;
+            border-radius: 12px;
+            padding: 15px 10px;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            position: relative;
         }
         .card i {
-            font-size: 22px;
+            font-size: 24px;
             color: #006A4E;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             background: #e8f5e9;
-            padding: 10px;
+            padding: 12px;
             border-radius: 50%;
         }
         .card span {
             display: block;
-            font-size: 12px;
+            font-size: 13px;
             color: #333;
             font-weight: 600;
         }
         .card p {
-            font-size: 10px;
+            font-size: 11px;
             color: #666;
-            margin-top: 2px;
+            margin-top: 4px;
         }
-        .card .phone-btn {
+        .card .sub-tag {
+            font-size: 10px;
+            color: #006A4E;
+            background: #e8f5e9;
+            padding: 2px 6px;
+            border-radius: 4px;
             display: inline-block;
-            margin-top: 6px;
+            margin-top: 4px;
+        }
+        .card .call-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 8px;
             background: #006A4E;
             color: #fff;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 10px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
             text-decoration: none;
+            width: 80%;
         }
+
         /* Bottom Menu */
         .bottom-nav {
             position: fixed;
@@ -203,50 +218,63 @@
         .modal-content {
             background: #fff;
             padding: 20px;
-            border-radius: 10px;
-            width: 85%;
+            border-radius: 15px;
+            width: 90%;
             max-width: 400px;
+            position: relative;
         }
-        .modal-content h3 {
-            margin-bottom: 12px;
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .modal-header h3 {
             color: #006A4E;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .close-modal-btn {
+            background: #eee;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 16px;
         }
         .form-group {
             margin-bottom: 10px;
         }
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            margin-bottom: 4px;
-        }
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 12px;
+            outline: none;
         }
-        .modal-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-            margin-top: 15px;
+        .form-group textarea {
+            height: 60px;
+            resize: none;
         }
-        .btn-submit {
+        .btn-save {
             background: #006A4E;
             color: #fff;
             border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 10px;
+            border-radius: 8px;
             cursor: pointer;
-        }
-        .btn-close {
-            background: #777;
-            color: #fff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
+            width: 100%;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -259,32 +287,32 @@
             <h1>আমাদের শেরপুর</h1>
             <p>সব সেবা একসাথে</p>
             <div class="date-box">
-                <i class="fa-regular fa-calendar-days"></i> <span id="current-date">লোড হচ্ছে...</span>
+                <i class="fa-regular fa-clock"></i> <span id="current-date">লোড হচ্ছে...</span>
             </div>
         </div>
 
-        <!-- Notice -->
-        <div class="notice-bar">
-            <span class="notice-badge">UPDATE</span>
-            <marquee behavior="scroll" direction="left">শেরপুর জেলা অ্যাপে আপনাকে স্বাগতম! সকল জরুরি সেবা এবং আপডেট এখানে পাবেন।</marquee>
+        <!-- Search Box -->
+        <div class="search-container">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass" style="color:#888;"></i>
+                <input type="text" id="searchInput" onkeyup="searchFilter()" placeholder="তথ্য খুঁজুন...">
+            </div>
         </div>
 
         <!-- Navigation Tabs -->
         <div class="nav-scroller">
             <button class="tab-btn active" onclick="filterCategory('all', this)">সব সেবা</button>
-            <button class="tab-btn" onclick="filterCategory('জরুরি সেবা', this)">জরুরি সেবা</button>
-            <button class="tab-btn" onclick="filterCategory('রক্তদাতা', this)">রক্তদাতা</button>
-            <button class="tab-btn" onclick="filterCategory('নোটিশ', this)">নোটিশ</button>
             <button class="tab-btn" onclick="filterCategory('সামাজিক সেবা', this)">সামাজিক সেবা</button>
-            <button class="tab-btn" onclick="filterCategory('প্রতিষ্ঠান', this)">প্রতিষ্ঠান</button>
+            <button class="tab-btn" onclick="filterCategory('জরুরি সেবা', this)">জরুরি সেবা</button>
             <button class="tab-btn" onclick="filterCategory('ধর্মীয় তথ্য', this)">ধর্মীয় তথ্য</button>
+            <button class="tab-btn" onclick="filterCategory('প্রতিষ্ঠান', this)">প্রতিষ্ঠান</button>
             <button class="tab-btn" onclick="filterCategory('খেলাধুলা', this)">খেলাধুলা</button>
         </div>
 
-        <!-- Service Grid Container -->
+        <!-- Dynamic Grid Container -->
         <div class="grid-title" id="section-title">সব সেবাসমূহ</div>
         <div class="grid-container" id="services-grid">
-            <!-- Dynamic Content Load Here -->
+            <!-- Data will load dynamically -->
         </div>
 
         <!-- Bottom Navigation -->
@@ -293,13 +321,13 @@
                 <i class="fa-solid fa-house"></i><br>হোম
             </a>
             <a href="#" class="bottom-item">
-                <i class="fa-solid fa-bell"></i><br>নোটিশ
+                <i class="fa-solid fa-bullhorn"></i><br>নোটিশ
             </a>
             <a href="#" class="bottom-item">
-                <i class="fa-solid fa-headset"></i><br>অভিযোগ
+                <i class="fa-solid fa-bell"></i><br>জরুরি
             </a>
             <a href="#" class="bottom-item">
-                <i class="fa-solid fa-gear"></i><br>সেটিংস
+                <i class="fa-solid fa-user"></i><br>প্রোফাইল
             </a>
         </div>
     </div>
@@ -307,71 +335,85 @@
     <!-- Admin Add Data Modal -->
     <div class="modal" id="adminModal">
         <div class="modal-content">
-            <h3>নতুন তথ্য যোগ করুন</h3>
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-plus"></i> নতুন তথ্য যোগ করুন</h3>
+                <button class="close-modal-btn" onclick="closeAdminModal()">✕</button>
+            </div>
             <form id="addForm" onsubmit="saveNewData(event)">
                 <div class="form-group">
-                    <label>ক্যাটাগরি সিলেক্ট করুন</label>
                     <select id="dataCategory" required>
-                        <option value="জরুরি সেবা">জরুরি সেবা</option>
-                        <option value="রক্তদাতা">রক্তদাতা</option>
-                        <option value="নোটিশ">নোটিশ</option>
-                        <option value="সামাজিক সেবা">সামাজিক সেবা</option>
-                        <option value="প্রতিষ্ঠান">প্রতিষ্ঠান</option>
-                        <option value="ধর্মীয় তথ্য">ধর্মীয় তথ্য</option>
-                        <option value="খেলাধুলা">খেলাধুলা</option>
+                        <option value="সামাজিক সেবা">🤝 সামাজিক সেবা</option>
+                        <option value="জরুরি সেবা">🚨 জরুরি সেবা</option>
+                        <option value="ধর্মীয় তথ্য">🕌 ধর্মীয় তথ্য</option>
+                        <option value="প্রতিষ্ঠান">🏢 প্রতিষ্ঠান</option>
+                        <option value="খেলাধুলা">⚽ খেলাধুলা</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>নাম / শিরোনাম</label>
-                    <input type="text" id="dataTitle" placeholder="যেমন: রক্তদাতা (O+)" required>
+                    <input type="text" id="dataTitle" placeholder="তথ্যের নাম *" required>
                 </div>
                 <div class="form-group">
-                    <label>ফোন নম্বর / বিস্তারিত</label>
-                    <input type="text" id="dataDetail" placeholder="যেমন: 01700000000">
+                    <input type="text" id="dataSubCat" placeholder="উপ-বিভাগের নাম (যেমন: পুলিশ/স্বেচ্ছাসেবক/কোরআন)">
                 </div>
                 <div class="form-group">
-                    <label>আইকন কোড (FontAwesome)</label>
-                    <input type="text" id="dataIcon" value="fa-circle-info" placeholder="fa-droplet">
+                    <input type="text" id="dataPhone" placeholder="ফোন নম্বর (প্রয়োজনে)">
                 </div>
-                <div class="modal-buttons">
-                    <button type="button" class="btn-close" onclick="closeAdminModal()">বন্ধ করুন</button>
-                    <button type="submit" class="btn-submit">সংরক্ষণ করুন</button>
+                <div class="form-group">
+                    <textarea id="dataDetail" placeholder="বিস্তারিত তথ্য"></textarea>
                 </div>
+                <button type="submit" class="btn-save">
+                    <i class="fa-solid fa-floppy-disk"></i> সংরক্ষণ করুন
+                </button>
             </form>
         </div>
     </div>
 
     <script>
-        // Default Services Data
+        // Initial App Data Including Quran under Religious Info
         let servicesData = [
-            { id: 1, name: 'পুলিশ', category: 'জরুরি সেবা', icon: 'fa-user-shield', detail: 'জরুরি কল' },
-            { id: 2, name: 'ফায়ার সার্ভিস', category: 'জরুরি সেবা', icon: 'fa-fire-extinguisher', detail: 'জরুরি সেবা' },
-            { id: 3, name: 'অ্যাম্বুলেন্স', category: 'জরুরি সেবা', icon: 'fa-truck-medical', detail: '২৪/৭ সার্ভিস' },
-            { id: 4, name: 'হাসপাতাল', category: 'জরুরি সেবা', icon: 'fa-hospital', detail: 'শেরপুর সদর' },
-            { id: 5, name: 'ডাক্তার', category: 'জরুরি সেবা', icon: 'fa-user-doctor', detail: 'পরামর্শ' },
-            { id: 6, name: 'রক্তদাতা O+', category: 'রক্তদাতা', icon: 'fa-droplet', detail: '01700000000' },
-            { id: 7, name: 'শিক্ষা প্রতিষ্ঠান', category: 'প্রতিষ্ঠান', icon: 'fa-school', detail: 'স্কুল ও কলেজ' },
-            { id: 8, name: 'নামাজের সময়', category: 'ধর্মীয় তথ্য', icon: 'fa-mosque', detail: 'সময়সূচি' },
-            { id: 9, name: 'টুর্নামেন্ট', category: 'খেলাধুলা', icon: 'fa-trophy', detail: 'আপডেট' }
+            // ধর্মীয় তথ্য
+            { id: 1, name: 'আল কোরআন (বাংলা অর্থসহ)', category: 'ধর্মীয় তথ্য', subCat: 'কোরআন', phone: '', detail: 'অনলাইন কোরআন শরীফ, তাফসির ও অডিও টিলাওয়াত', icon: 'fa-book-quran' },
+            { id: 2, name: 'মসজিদ ও সময়সূচি', category: 'ধর্মীয় তথ্য', subCat: 'নামাজ', phone: '', detail: 'পাঁচ ওয়াক্ত নামাজের সময়সূচি', icon: 'fa-mosque' },
+            
+            // সামাজিক সেবা
+            { id: 3, name: 'রক্তদাতা (O+)', category: 'সামাজিক সেবা', subCat: 'রক্তদাতা', phone: '01700000000', detail: 'জরুরি রক্তদানের জন্য যোগাযোগ করুন', icon: 'fa-droplet' },
+            { id: 4, name: 'স্বেচ্ছাসেবক টিম', category: 'সামাজিক সেবা', subCat: 'স্বেচ্ছাসেবক', phone: '01800000000', detail: 'স্থানীয় সাহায্য কেন্দ্র', icon: 'fa-hand-holding-heart' },
+
+            // জরুরি সেবা
+            { id: 5, name: 'শেরপুর পুলিশ স্টেশন', category: 'জরুরি সেবা', subCat: 'পুলিশ', phone: '01713373400', detail: 'জরুরি পুলিশি সেবা', icon: 'fa-user-shield' },
+            { id: 6, name: 'ফায়ার সার্ভিস', category: 'জরুরি সেবা', subCat: 'ফায়ার সার্ভিস', phone: '01730002233', detail: 'শেরপুর ফায়ার স্টেশন', icon: 'fa-fire-extinguisher' },
+
+            // প্রতিষ্ঠান
+            { id: 7, name: 'শেরপুর সরকারি কলেজ', category: 'প্রতিষ্ঠান', subCat: 'কলেজ', phone: '', detail: 'শিক্ষা প্রতিষ্ঠান', icon: 'fa-building-columns' },
+
+            // খেলাধুলা
+            { id: 8, name: 'আজকের ম্যাচের আপডেট', category: 'খেলাধুলা', subCat: 'টুর্নামেন্ট', phone: '', detail: 'স্থানীয় টুর্নামেন্ট', icon: 'fa-trophy' }
         ];
 
         let currentFilter = 'all';
 
-        // Display Date
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString('bn-BD', options);
+        // Display Date & Time
+        function updateTime() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const dateStr = now.toLocaleDateString('bn-BD', options);
+            document.getElementById('current-date').textContent = `${timeStr} - ${dateStr}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
 
-        // Render Services based on Filter
-        function renderServices() {
+        // Render Cards Dynamically
+        function renderServices(dataToRender = servicesData) {
             const grid = document.getElementById('services-grid');
             grid.innerHTML = '';
 
             const filteredData = currentFilter === 'all' 
-                ? servicesData 
-                : servicesData.filter(item => item.category === currentFilter);
+                ? dataToRender 
+                : dataToRender.filter(item => item.category === currentFilter);
 
             if (filteredData.length === 0) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#999; padding:20px;">কোনো তথ্য পাওয়া যায়নি।</p>`;
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#888; padding:30px;">কোনো তথ্য পাওয়া যায়নি।</p>`;
                 return;
             }
 
@@ -381,14 +423,15 @@
                 card.innerHTML = `
                     <i class="fa-solid ${item.icon}"></i>
                     <span>${item.name}</span>
+                    ${item.subCat ? `<div class="sub-tag">${item.subCat}</div>` : ''}
                     <p>${item.detail || ''}</p>
-                    ${item.detail && item.detail.match(/\d+/) ? `<a href="tel:${item.detail}" class="phone-btn"><i class="fa-solid fa-phone"></i> কল</a>` : ''}
+                    ${item.phone ? `<a href="tel:${item.phone}" class="call-btn"><i class="fa-solid fa-phone"></i> কল করুন</a>` : ''}
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // Category Filter Function
+        // Category Filter
         function filterCategory(category, btn) {
             currentFilter = category;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -397,7 +440,18 @@
             renderServices();
         }
 
-        // Modal Handlers
+        // Search Filter
+        function searchFilter() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = servicesData.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.subCat.toLowerCase().includes(query) ||
+                item.detail.toLowerCase().includes(query)
+            );
+            renderServices(filtered);
+        }
+
+        // Admin Modal Controls
         function openAdminModal() {
             document.getElementById('adminModal').style.display = 'flex';
         }
@@ -405,27 +459,39 @@
             document.getElementById('adminModal').style.display = 'none';
         }
 
-        // Save New Data from Admin Form
+        // Save New Data from Form
         function saveNewData(event) {
             event.preventDefault();
+
             const category = document.getElementById('dataCategory').value;
             const name = document.getElementById('dataTitle').value;
+            const subCat = document.getElementById('dataSubCat').value;
+            const phone = document.getElementById('dataPhone').value;
             const detail = document.getElementById('dataDetail').value;
-            const icon = document.getElementById('dataIcon').value || 'fa-circle-info';
+
+            // Icon selector logic
+            let icon = 'fa-circle-info';
+            if(category === 'ধর্মীয় তথ্য') icon = 'fa-book-quran';
+            else if(category === 'জরুরি সেবা') icon = 'fa-bell';
+            else if(category === 'সামাজিক সেবা') icon = 'fa-hand-holding-heart';
+            else if(category === 'প্রতিষ্ঠান') icon = 'fa-building';
+            else if(category === 'খেলাধুলা') icon = 'fa-futbol';
 
             const newItem = {
                 id: Date.now(),
                 name: name,
                 category: category,
-                icon: icon,
-                detail: detail
+                subCat: subCat,
+                phone: phone,
+                detail: detail,
+                icon: icon
             };
 
-            servicesData.push(newItem);
+            servicesData.unshift(newItem); // Unshift pushes it to top of array
             closeAdminModal();
             document.getElementById('addForm').reset();
             
-            // Switch filter to the newly added category to show it
+            // Automatically switch filter to the category where user added data
             const matchingTab = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.trim() === category);
             if (matchingTab) {
                 filterCategory(category, matchingTab);
@@ -438,4 +504,4 @@
         renderServices();
     </script>
 </body>
- </html>
+            </html>
